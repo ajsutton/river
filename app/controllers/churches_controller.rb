@@ -7,7 +7,7 @@ class ChurchesController < ApplicationController
   
   def create
     @church = Church.new(church_params)
-    @user = User.new(params.require(:user).permit(:username, :password))
+    @user = User.new(params.require(:user).permit(:username, :password, :password_confirmation))
     @user.church = @church
     if @church.valid? && @user.valid? && @church.save && @user.save
       redirect_to churches_path

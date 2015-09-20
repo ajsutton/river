@@ -1,0 +1,33 @@
+<h1>Set Up a New Church</h1>
+<p>We'll get you up and running in no time - just need to get a few details…</p>
+<% if @church.errors.any? %>
+  <div class="alert alert-danger">
+    <% @church.errors.full_messages.each do |msg| %>
+      <p><%= msg %></p>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_for @church do |f| %>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Church Details</div>
+		<div class="panel-body">
+		  <div class="form-group">
+		    <%= f.label :name %>
+		    <%= f.text_field :name, class: 'form-control' %>
+			<div class="help-block">The name of your Church.</div>
+		  </div>
+  
+		  <div class="form-group">
+		    <%= f.label :shortname %>
+		    <%= f.text_field :shortname, class: 'form-control' %>
+			<div class="help-block">A short name without special characters for your church.</div>
+		  </div>
+		</div>
+	</div>
+ 
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-primary pull-right' %>
+  </div>
+<% end %>

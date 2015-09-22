@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920103729) do
+ActiveRecord::Schema.define(version: 20150921153859) do
 
   create_table "churches", force: :cascade do |t|
     t.string   "shortname",  limit: 16
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 20150920103729) do
   end
 
   add_index "churches", ["shortname"], name: "index_churches_on_shortname", unique: true
+
+  create_table "identities", force: :cascade do |t|
+    t.string  "uid"
+    t.string  "provider"
+    t.integer "user_id"
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

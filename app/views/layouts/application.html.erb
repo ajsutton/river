@@ -21,6 +21,13 @@
       <ul class="nav navbar-nav">
         <li class="<%= 'active' if params[:controller] == 'welcome' %>"><%= link_to 'Home', root_path %></li>
 	  </ul>
+	  <div class="pull-right">
+		  <% if signed_in? %>
+		  	<%= link_to 'Log Out', logout_path, class: 'btn btn-primary navbar-btn' %>
+		  <% else %>
+		    <%= link_to 'Log In', '/auth/developer', class: 'btn btn-primary navbar-btn' %>
+		  <% end %>
+	  </div>
     </div>
   </div>
 </nav>

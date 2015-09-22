@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   def create
     logger.info("Received create request")
     auth = request.env['omniauth.auth']
+
     # Find an identity here
     @identity = Identity.find_with_omniauth(auth)
 
@@ -37,9 +38,8 @@ class SessionsController < ApplicationController
         self.current_user = @identity.user
         redirect_to root_url
       else
-        logger.info("No user")
         # No user associated with the identity so we need to create a new one
-        @user = User.create_with_omniauth(auth)
+        @user = User.create_with_omniauth(auth[:info])
         @user.save!
         @identity.user = @user
         @identity.save!

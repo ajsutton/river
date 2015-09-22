@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150921153859) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "churches", force: :cascade do |t|
     t.string   "shortname",  limit: 16
     t.string   "name"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150921153859) do
     t.datetime "updated_at",            null: false
   end
 
-  add_index "churches", ["shortname"], name: "index_churches_on_shortname", unique: true
+  add_index "churches", ["shortname"], name: "index_churches_on_shortname", unique: true, using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.string  "uid"
@@ -28,7 +31,7 @@ ActiveRecord::Schema.define(version: 20150921153859) do
     t.integer "user_id"
   end
 
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -38,7 +41,8 @@ ActiveRecord::Schema.define(version: 20150921153859) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "users", ["church_id"], name: "index_users_on_church_id"
-  add_index "users", ["username"], name: "index_users_on_username", unique: true
+  add_index "users", ["church_id"], name: "index_users_on_church_id", using: :btree
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "users", "churches"
 end

@@ -15,24 +15,21 @@ class SessionsController < ApplicationController
 
     if signed_in?
       if @identity.user == current_user
-        logger.info("Already signed in with same identity")
         # User is signed in so they are trying to link an identity with their
         # account. But we found the identity and the user associated with it 
         # is the current user. So the identity is already associated with 
         # this user. So let's display an error message.
-        redirect_to root_url, notice: "Already linked that account!"
+        redirect_to root_url, alert: "Already linked that account!"
       else
-        logger.info("Signed in with different identity")
         # The identity is not associated with the current_user so lets 
         # associate the identity
         @identity.user = current_user
         @identity.save()
-        redirect_to root_url, notice: "Successfully linked that account!"
+        redirect_to root_url, success: "Successfully linked that account!"
       end
     else
       logger.info("not signed in")
       if @identity.user.present?
-        logger.info("User exists");
         # The identity we found had a user associated with it so let's 
         # just log them in here
         self.current_user = @identity.user

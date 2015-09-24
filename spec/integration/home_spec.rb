@@ -1,4 +1,3 @@
-require 'rails_helper'
 require 'dsl_helper'
 
 describe 'home page' do

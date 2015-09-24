@@ -1,6 +1,8 @@
 River
 =====
 
+[![Build Status](https://travis-ci.org/ajsutton/river.svg?branch=master)](https://travis-ci.org/ajsutton/river)
+
 River is a combination of experimenting with ruby and experimenting with software needed for running a church.
 
 Running Tests

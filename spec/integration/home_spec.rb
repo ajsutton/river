@@ -18,5 +18,6 @@ describe 'home page' do
   
   it 'prompts to create a church on first log in' do
     Dsl.home.login :user
+    Dsl.setup.create_church :church
   end
 end

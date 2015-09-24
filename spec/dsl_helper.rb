@@ -5,12 +5,17 @@ require 'capybara/rails'
 require 'dsl/home_helper'
 
 module Dsl
-  def Dsl.params(supplied, options = {})
+  @homeDriver = HomeDriver.new
+  def Dsl.home
+    @homeDriver
+  end
+end
+
+module DslUtil
+  def DslUtil.params(supplied, options = {})
     supplied ||= {}
     result = {}
     options.each {|k,v| result[k] = supplied[k] || v}
     result
   end
-
-  $home = HomeDriver.new
 end

@@ -3,11 +3,12 @@ module Dsl
     include Capybara::DSL
     include ::RSpec::Matchers
 
-    def login(options = {})
-      params = Dsl.params(options, {
+    def login(userAlias, options = {})
+      params = DslUtil.params(options, {
         name: 'John Doe',
         email: 'john@example.com'
       })
+      
       visit('/')
       find('.navbar .login').click
       fill_in 'name', :with => params[:name]

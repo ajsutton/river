@@ -2,11 +2,15 @@ class HomeDriver
   include Capybara::DSL
   include ::RSpec::Matchers
 
-  def login
+  def login(options = {})
+    params = Dsl.params(options, {
+      name: 'John Doe',
+      email: 'john@example.com'
+    })
     visit('/')
     find('.navbar .login').click
-    fill_in 'name', :with => 'John Doe'
-    fill_in 'email', :with => 'john@doe.com'
+    fill_in 'name', :with => params[:name]
+    fill_in 'email', :with => params[:email]
     click_button 'Sign In'
   end
   
@@ -25,4 +29,3 @@ class HomeDriver
     expect(find('.navbar')).to have_css('.logout')
   end
 end
-

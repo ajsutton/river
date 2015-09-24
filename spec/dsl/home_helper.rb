@@ -17,7 +17,6 @@ module DslUtil
         { name: params[:name], email: "#{uniqueKey}@#{params[:emailDomain]}" }
       end
       
-      puts user[:email]
       visit('/')
       find('.navbar .login').click
       fill_in 'name', :with => user[:name]

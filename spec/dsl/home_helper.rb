@@ -1,18 +1,27 @@
-module Dsl
+module DslUtil
   class HomeDriver
     include Capybara::DSL
     include ::RSpec::Matchers
 
+    def initialize(users)
+      @users = users
+    end
+    
     def login(userAlias, options = {})
       params = DslUtil.params(options, {
         name: 'John Doe',
-        email: 'john@example.com'
+        emailDomain: 'example.com'
       })
       
+      user = @users.get_or_create userAlias do |uniqueKey|
+        { name: params[:name], email: "#{uniqueKey}@#{params[:emailDomain]}" }
+      end
+      
+      puts user[:email]
       visit('/')
       find('.navbar .login').click
-      fill_in 'name', :with => params[:name]
-      fill_in 'email', :with => params[:email]
+      fill_in 'name', :with => user[:name]
+      fill_in 'email', :with => user[:email]
       click_button 'Sign In'
     end
   

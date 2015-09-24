@@ -10,13 +10,18 @@ class HomeDriver
     click_button 'Sign In'
   end
   
-  def verify_login_present
+  def logout
+    visit('/')
+    find('.navbar .logout').click
+  end
+  
+  def login_present!
     visit('/')
     expect(find('.jumbotron')).to have_css('.login')
     expect(find('.navbar')).to have_css('.login')
   end
   
-  def verify_logout_present
+  def logout_present!
     expect(find('.navbar')).to have_css('.logout')
   end
 end

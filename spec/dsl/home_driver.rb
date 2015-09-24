@@ -7,6 +7,10 @@ module DslUtil
       @users = users
     end
     
+    def on_home_page!
+      expect(find('.jumbotron h1')).to have_text('Welcome')
+    end
+    
     def login(userAlias, options = {})
       params = DslUtil.params(options, {
         name: 'John Doe',

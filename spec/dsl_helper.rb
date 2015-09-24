@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara-screenshot/rspec'
 require 'securerandom'
 
 require 'dsl/home_driver'
@@ -20,7 +21,7 @@ module DslUtil
     end
     
     def get_or_create(key, &block)
-      @objects[key] ||= yield(SecureRandom.urlsafe_base64(16))
+      @objects[key] ||= yield(SecureRandom.hex(8))
     end
   end
 end

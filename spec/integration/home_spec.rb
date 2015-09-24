@@ -19,5 +19,14 @@ describe 'home page' do
   it 'prompts to create a church on first log in' do
     Dsl.home.login :user
     Dsl.setup.create_church :church
+    Dsl.home.on_home_page!
+  end
+  
+  it 'should not prompt to create a church when one has already been created' do
+    Dsl.home.login :user
+    Dsl.setup.create_church :church
+    Dsl.home.logout
+    Dsl.home.login :user
+    Dsl.home.on_home_page!
   end
 end

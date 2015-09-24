@@ -1,6 +1,6 @@
 require 'dsl_helper'
 
-describe 'home page' do
+describe 'log in' do
   it 'displays a login button when not logged in' do
     Dsl.home.login_present!
   end

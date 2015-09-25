@@ -24,6 +24,10 @@ module DslUtil
     def get_or_create(key, &block)
       @objects[key] ||= yield(SecureRandom.hex(8))
     end
+    
+    def get(key)
+      @objects[key]
+    end
   end
 end
 
@@ -31,10 +35,11 @@ end
 module Dsl
   users = DslUtil::AliasedObjectStore.new
   churches = DslUtil::AliasedObjectStore.new
+  people = DslUtil::AliasedObjectStore.new
   
   @homeDriver = DslUtil::HomeDriver.new(users)
   @setupDriver = DslUtil::SetupDriver.new(churches)
-  @peopleDriver = DslUtil::PeopleDriver.new
+  @peopleDriver = DslUtil::PeopleDriver.new(people)
   
   def Dsl.home
     @homeDriver

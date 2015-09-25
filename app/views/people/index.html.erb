@@ -1,11 +1,11 @@
-<table class="table table-striped">
+<table class="table table-striped people">
   <tr>
     <th>Name</th>
   </tr>
  
   <% @people.each do |person| %>
     <tr>
-      <td><%= link_to person.name, edit_person_path(person) %></td>
+      <td><%= link_to person.name, edit_person_path(person), class: 'name' %></td>
     </tr>
   <% end %>
 </table>

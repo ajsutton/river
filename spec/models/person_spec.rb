@@ -16,4 +16,12 @@ describe Person, type: :model do
   it 'creates a name from first and last names' do
     expect(build(:person, first_name: 'Roger', last_name: 'Smith').name).to eq('Roger Smith')
   end
+  
+  it 'stores arbitrary fields' do
+    fields = { 'a' => 'b', 'd' => 3, 'f' => true }
+    person = build(:person, fields: fields)
+    expect(person.save).to be true
+    person.reload
+    expect(person.fields).to eq(fields)
+  end
 end

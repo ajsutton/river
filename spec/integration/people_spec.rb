@@ -26,7 +26,15 @@ describe 'people module' do
       Dsl.people.has_people :person
     end
     
-    it 'should not list people from other churches'
+    it 'should not list people from other churches' do
+      Dsl.people.add :person
+      Dsl.people.has_people :person
+      
+      Dsl.home.logout
+      
+      Dsl.setup.login_with_church :user2, :church2
+      Dsl.people.has_people #none
+    end
     
     it 'should not view people from other churches'
     

@@ -6,6 +6,7 @@ require 'securerandom'
 
 require 'dsl/home_driver'
 require 'dsl/setup_driver'
+require 'dsl/people_driver'
 
 module DslUtil
   def DslUtil.params(supplied, options = {})
@@ -33,10 +34,17 @@ module Dsl
   
   @homeDriver = DslUtil::HomeDriver.new(users)
   @setupDriver = DslUtil::SetupDriver.new(churches)
+  @peopleDriver = DslUtil::PeopleDriver.new
+  
   def Dsl.home
     @homeDriver
   end
+  
   def Dsl.setup
     @setupDriver
+  end
+  
+  def Dsl.people
+    @peopleDriver
   end
 end

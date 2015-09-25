@@ -5,6 +5,10 @@ describe Person, type: :model do
     expect(create(:person)).to be_valid
   end
   
+  it 'requires a church' do
+    expect(build(:person, church: nil)).to be_invalid
+  end
+  
   it 'requires first name' do
     expect(build(:person, first_name: nil)).to be_invalid
   end

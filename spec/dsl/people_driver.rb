@@ -19,9 +19,26 @@ module DslUtil
       
       open_people_index
       click_link('Add')
-      fill_in 'person_first_name', :with => person[:first_name]
-      fill_in 'person_last_name', :with => person[:last_name]
+      fill_in_details person
       click_button 'Create Person'
+    end
+    
+    def edit(personAlias, options = {})
+      params = DslUtil.params(options, {
+        first_name: 'John',
+        last_name: 'Doe'
+      })
+      
+      person = @people.get personAlias
+      
+      open_people_index
+      click_link name_for(person)
+      
+      person[:first_name] = params[:first_name]
+      person[:last_name] = params[:last_name]
+
+      fill_in_details person
+      click_button 'Update Person'
     end
     
     def has_people(*expected_people)
@@ -29,8 +46,7 @@ module DslUtil
       
       actual_names = page.all('.people .name').map { |el| el.text }
       expected_names = expected_people.map do |personAlias|
-        person = @people.get(personAlias)
-        "#{person[:first_name]} #{person[:last_name]}" 
+        name_for @people.get(personAlias)
       end
       expect(actual_names).to eq(expected_names)
     end
@@ -53,6 +69,15 @@ module DslUtil
     private
     def open_people_index
       find('.navbar').click_link 'People'
+    end
+    
+    def name_for(person)
+      "#{person[:first_name]} #{person[:last_name]}"
+    end
+    
+    def fill_in_details(person)
+      fill_in 'person_first_name', :with => person[:first_name]
+      fill_in 'person_last_name', :with => person[:last_name]
     end
   end
 end

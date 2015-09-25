@@ -10,9 +10,26 @@ describe 'people module' do
     Dsl.people.navigate_to_index expect: :forbidden
   end
   
-  it 'allows adding a person' do
-    Dsl.setup.login_with_church :user, :church
-    Dsl.people.add :person
-    Dsl.people.has_people :person
+  describe 'with a valid church' do
+    before :each do
+      Dsl.setup.login_with_church :user, :church
+    end
+  
+    it 'allows adding a person' do
+      Dsl.people.add :person
+      Dsl.people.has_people :person
+    end
+  
+    it 'allows editing a person' do
+      Dsl.people.add :person
+      Dsl.people.edit :person, first_name: 'Roger', last_name: 'Banks'
+      Dsl.people.has_people :person
+    end
+    
+    it 'should not list people from other churches'
+    
+    it 'should not view people from other churches'
+    
+    it 'should not edit people from other churches'
   end
 end

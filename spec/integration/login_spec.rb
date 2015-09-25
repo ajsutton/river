@@ -35,8 +35,13 @@ describe 'log in' do
     Dsl.home.people_component_available!
   end
   
-  it 'should notlink to people component when logged in without a church' do
+  it 'should not link to people component when logged in without a church' do
     Dsl.home.login :user
     Dsl.home.people_component_unavailable!
+  end
+  
+  it 'should provide create church button when logged in without a church' do
+    Dsl.home.login :user
+    Dsl.home.create_church_available!
   end
 end

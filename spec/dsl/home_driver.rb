@@ -21,7 +21,7 @@ module DslUtil
         { name: params[:name], email: "#{uniqueKey}@#{params[:emailDomain]}" }
       end
       
-      visit('/')
+      view_home_page
       find('.navbar .login').click
       fill_in 'name', :with => user[:name]
       fill_in 'email', :with => user[:email]
@@ -29,26 +29,40 @@ module DslUtil
     end
   
     def logout
-      visit('/')
+      view_home_page
       find('.navbar .logout').click
     end
   
     def login_present!
-      visit('/')
+      view_home_page
       expect(find('.jumbotron')).to have_css('.login')
       expect(find('.navbar')).to have_css('.login')
     end
   
     def logout_present!
+      view_home_page
       expect(find('.navbar')).to have_css('.logout')
     end
     
     def people_component_available!
+      view_home_page
       expect(find('.navbar')).to have_link('People')
     end
     
     def people_component_unavailable!
+      view_home_page
       expect(find('.navbar')).to have_no_link('People')
+    end
+    
+    def create_church_available!
+      view_home_page
+      expect(find('.jumbotron')).to have_link('Setup Church')
+    end
+    
+    private
+    
+    def view_home_page
+      visit('/')
     end
   end
 end

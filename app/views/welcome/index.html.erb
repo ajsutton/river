@@ -2,5 +2,7 @@
 	<h1>Welcome!</h1>
 	<% if !signed_in? %>
 	<p><%= link_to 'Log In', '/auth/developer', class: 'btn btn-primary btn-lg login' %></p>
+	<% elsif signed_in? && !current_user.church %>
+		<p><%= link_to 'Setup Church', new_church_path, class: 'btn btn-primary btn-lg' %>
 	<% end %>
 </div>

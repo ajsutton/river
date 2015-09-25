@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
     @current_user = user
     session[:user_id] = user.nil? ? nil : user.id
   end
+  
+  def authenticate_user!
+    render 'errors/forbidden.html.erb', :status => :forbidden unless signed_in?
+  end
 end

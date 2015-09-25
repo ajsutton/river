@@ -42,5 +42,9 @@ module DslUtil
     def logout_present!
       expect(find('.navbar')).to have_css('.logout')
     end
+    
+    def people_component_available!
+      expect(find('.navbar')).to have_link('People')
+    end
   end
 end

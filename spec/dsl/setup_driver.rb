@@ -20,5 +20,16 @@ module DslUtil
       fill_in 'church_shortname', :with => church[:shortname]
       click_button 'Create Church'
     end
+    
+    def login_with_church(userAlias, churchAlias, options = {})
+      params = DslUtil.params(options, {
+        church_name: 'My Church',
+        user_name: 'John Doe',
+        email_domain: 'example.com'
+      })
+      
+      Dsl.home.login userAlias, { name: params[:user_name], email_domain: params[:email_domain] }
+      create_church(churchAlias, { name: params[:church_name] })
+    end
   end
 end

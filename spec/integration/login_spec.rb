@@ -29,4 +29,9 @@ describe 'log in' do
     Dsl.home.login :user
     Dsl.home.on_home_page!
   end
+  
+  xit 'should link to people component when logged in with valid church' do
+    Dsl.setup.login_with_church :user, :church
+    Dsl.home.people_component_available!
+  end
 end

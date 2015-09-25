@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   
   resources :churches
+  resources :people
   
   # Sessions
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]

@@ -46,5 +46,9 @@ module DslUtil
     def people_component_available!
       expect(find('.navbar')).to have_link('People')
     end
+    
+    def people_component_unavailable!
+      expect(find('.navbar')).to have_no_link('People')
+    end
   end
 end

@@ -1,0 +1,13 @@
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+  </tr>
+ 
+  <% @people.each do |person| %>
+    <tr>
+      <td><%= link_to person.name, edit_person_path(person) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to 'Add', new_person_path, class: 'btn btn-default' %></p>

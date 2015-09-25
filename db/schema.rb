@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924235024) do
+ActiveRecord::Schema.define(version: 20150925011503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(version: 20150924235024) do
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.jsonb    "attributes"
+    t.jsonb    "fields"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "people", ["attributes"], name: "index_people_on_attributes", using: :gin
+  add_index "people", ["fields"], name: "index_people_on_fields", using: :gin
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

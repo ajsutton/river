@@ -1,12 +1,6 @@
 <h1>Set Up a New Church</h1>
 <p>You don't appear to have an existing church setup. Let's create one now to get you started.</p>
-<% if @church.errors.any? %>
-  <div class="alert alert-danger">
-    <% @church.errors.full_messages.each do |msg| %>
-      <p><%= msg %></p>
-    <% end %>
-  </div>
-<% end %>
+<%= render_errors(@church) %>
 
 <%= form_for @church do |f| %>
 

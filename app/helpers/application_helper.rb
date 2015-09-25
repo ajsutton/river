@@ -13,4 +13,15 @@ module ApplicationHelper
     end
     nil
   end
+  
+  def render_errors(model)
+    if model.errors.any?
+      concat(content_tag(:div, '', class: 'alert alert-danger fade in') do
+        model.errors.full_messages.each do |msg|
+          concat content_tag(:p, msg)
+        end
+      end)
+    end
+    nil
+  end
 end

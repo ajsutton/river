@@ -1,0 +1,26 @@
+<%= render_errors(@person) %>
+<%= form_for @person do |f| %>
+	<div class="row">
+		<div class="col-xs-6">
+		  <div class="form-group">
+		    <%= f.label :first_name %><br>
+		    <%= f.text_field :first_name, class: 'form-control' %>
+		  </div>
+	    </div>
+
+		<div class="col-xs-6">
+			<div class="form-group">
+				<%= f.label :last_name %><br>
+				<%= f.text_field :last_name, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+ 	<div class="row">
+	  <div class="col-xs-12">
+		  <div class="form-group">
+		    <%= f.submit class: 'btn btn-primary pull-right' %>
+			<%= link_to 'Back', people_path %>
+		  </div>
+	  </div>
+	</div>
+<% end %>

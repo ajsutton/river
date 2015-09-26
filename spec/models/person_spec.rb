@@ -22,7 +22,7 @@ describe Person, type: :model do
   end
   
   it 'stores arbitrary fields' do
-    fields = { 'a field' => 'b', 'd' => 3, 'f' => true }
+    fields = { 'a field!@#$%^&*()[]{}_-="\'' => 'b💩', 'd💩' => 3, 'f' => true }
     person = build(:person, fields: fields)
     expect(person.save).to be true
     person.reload

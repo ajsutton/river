@@ -9,12 +9,26 @@ RSpec.describe Field, type: :model do
     expect(build(:field, church: nil)).to be_invalid
   end
   
-  it 'requires applies_to' do
-    expect(build(:field, applies_to: nil)).to be_invalid
+  describe 'applies_to' do
+    it 'is required' do
+      expect(build(:field, applies_to: nil)).to be_invalid
+    end
+    
+    it 'must be one of the valid values' do
+      expect(build(:field, applies_to: 'people')).to be_valid
+      expect(build(:field, applies_to: 'churches')).to be_invalid
+    end
   end
   
-  it 'requires type' do
-    expect(build(:field, type: nil)).to be_invalid
+  describe 'type' do
+    it 'is required' do
+      expect(build(:field, type: nil)).to be_invalid
+    end
+    
+    it 'must be one of the supported values' do
+      ['string', 'boolean', 'integer', 'date'].each { |val| expect(build(:field, type: val)).to be_valid }
+      expect(build(:field, type: 'foo')).to be_invalid
+    end
   end
   
   it 'defaults required to false' do

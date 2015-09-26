@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChurchesController < ApplicationController
   def new
     @church = Church.new
@@ -19,3 +20,4 @@ class ChurchesController < ApplicationController
       params.require(:church).permit(:name, :shortname)
     end
 end
+

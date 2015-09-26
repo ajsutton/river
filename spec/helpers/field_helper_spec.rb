@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
@@ -52,3 +53,4 @@ RSpec.describe FieldHelper, type: :helper do
     end
   end
 end
+

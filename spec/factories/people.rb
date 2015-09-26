@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :person do |f|
     church
@@ -5,3 +6,4 @@ FactoryGirl.define do
     f.last_name 'Doe'
   end
 end
+

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Rails.application.routes.draw do
   
   root 'welcome#index'
@@ -64,3 +65,4 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
+

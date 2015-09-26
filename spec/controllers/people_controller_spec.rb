@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rails_helper'
 
 RSpec.describe PeopleController, type: :controller do
@@ -46,3 +47,4 @@ RSpec.describe PeopleController, type: :controller do
     end
   end
 end
+

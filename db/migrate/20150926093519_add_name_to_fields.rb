@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddNameToFields < ActiveRecord::Migration
   def change
     add_column :fields, :name, :string
@@ -7,3 +8,4 @@ class AddNameToFields < ActiveRecord::Migration
     add_index :fields, [ :church_id, :applies_to, :name ], unique: true
   end
 end
+

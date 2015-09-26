@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateIdentities < ActiveRecord::Migration
   def change
     create_table :identities do |t|
@@ -9,3 +10,4 @@ class CreateIdentities < ActiveRecord::Migration
     add_index :identities, :user_id
   end
 end
+

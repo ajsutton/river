@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Field < ActiveRecord::Base
   belongs_to :church
   
@@ -12,3 +13,4 @@ class Field < ActiveRecord::Base
     self.required = false if self.required.nil?
   end
 end
+

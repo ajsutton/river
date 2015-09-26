@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module DslUtil
   class SetupDriver
     include Capybara::DSL
@@ -33,3 +34,4 @@ module DslUtil
     end
   end
 end
+

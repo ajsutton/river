@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateFields < ActiveRecord::Migration
   def change
     create_table :fields do |t|
@@ -12,3 +13,4 @@ class CreateFields < ActiveRecord::Migration
     add_index :fields, [ :church_id, :applies_to ]
   end
 end
+

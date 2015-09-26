@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Person < ActiveRecord::Base
   belongs_to :church
   
@@ -9,3 +10,4 @@ class Person < ActiveRecord::Base
     return "#{first_name} #{last_name}"
   end
 end
+

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rails_helper'
 
 describe Church, type: :model do
@@ -23,3 +24,4 @@ describe Church, type: :model do
     expect(build(:church, name: nil)).to be_invalid
   end
 end
+

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateChurches < ActiveRecord::Migration
   def change
     create_table :churches do |t|
@@ -9,3 +10,4 @@ class CreateChurches < ActiveRecord::Migration
     add_index :churches, :shortname, unique: true
   end
 end
+

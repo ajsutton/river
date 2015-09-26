@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module DslUtil
   class PeopleDriver
     include Capybara::DSL
@@ -81,3 +82,4 @@ module DslUtil
     end
   end
 end
+

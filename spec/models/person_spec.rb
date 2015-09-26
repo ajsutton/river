@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rails_helper'
 
 describe Person, type: :model do
@@ -29,3 +30,4 @@ describe Person, type: :model do
     expect(person.fields).to eq(fields)
   end
 end
+

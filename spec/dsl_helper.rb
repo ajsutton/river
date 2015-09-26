@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -53,3 +54,4 @@ module Dsl
     @peopleDriver
   end
 end
+

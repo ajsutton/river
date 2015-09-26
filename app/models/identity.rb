@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Identity < ActiveRecord::Base
   belongs_to :user
 
@@ -9,3 +10,4 @@ class Identity < ActiveRecord::Base
     create(uid: auth['uid'], provider: auth['provider'])
   end
 end
+

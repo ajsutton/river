@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module DslUtil
   class HomeDriver
     include Capybara::DSL
@@ -66,3 +67,4 @@ module DslUtil
     end
   end
 end
+

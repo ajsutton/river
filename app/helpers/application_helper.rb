@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module ApplicationHelper
   def bootstrap_class_for flash_type
     logger.info("Flash type: " + flash_type)
@@ -25,3 +26,4 @@ module ApplicationHelper
     nil
   end
 end
+

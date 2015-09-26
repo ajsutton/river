@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'dsl_helper'
 
 describe 'people module' do
@@ -37,3 +38,4 @@ describe 'people module' do
     end
   end
 end
+

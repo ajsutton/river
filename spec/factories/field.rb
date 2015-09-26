@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :field do |f|
     church
@@ -7,3 +8,4 @@ FactoryGirl.define do
     sequence(:name) { |n| "field#{n}" }
   end
 end
+

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rails_helper'
 
 RSpec.describe Field, type: :model do
@@ -47,3 +48,4 @@ RSpec.describe Field, type: :model do
     expect(create(:field).required).to be false
   end
 end
+

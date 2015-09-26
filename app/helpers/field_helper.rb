@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module FieldHelper
   
   def render_field(field, model = nil)
@@ -15,3 +16,4 @@ module FieldHelper
   end
   
 end
+

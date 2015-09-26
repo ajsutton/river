@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
   belongs_to :church
   has_many :identities
@@ -8,3 +9,4 @@ class User < ActiveRecord::Base
     create(name: info['name'], email: info['email'])
   end
 end
+

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :create
   
@@ -51,3 +52,4 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 end
+

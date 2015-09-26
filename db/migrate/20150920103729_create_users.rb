@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
@@ -10,3 +11,4 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :username, unique: true
   end
 end
+

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PeopleController < ApplicationController
   before_action :require_church!
   
@@ -46,3 +47,4 @@ class PeopleController < ApplicationController
       Person.find_by({ id: id, church: current_user.church })
     end
 end
+

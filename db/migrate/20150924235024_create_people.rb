@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreatePeople < ActiveRecord::Migration
   def change
     create_table :people do |t|
@@ -10,3 +11,4 @@ class CreatePeople < ActiveRecord::Migration
     add_index :people, :attributes, using: :gin
   end
 end
+

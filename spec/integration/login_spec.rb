@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'dsl_helper'
 
 describe 'log in' do
@@ -45,3 +46,4 @@ describe 'log in' do
     Dsl.home.create_church_available!
   end
 end
+

@@ -20,7 +20,11 @@ class PeopleController < ApplicationController
   end
   
   def edit
-    @person = Person.find(params[:id])
+    @person = find(params[:id])
+    puts @person
+    if (!@person)
+      not_found
+    end
   end
   
   def update
@@ -35,5 +39,9 @@ class PeopleController < ApplicationController
   private
     def person_params
       params.require(:person).permit(:first_name, :last_name)
+    end
+    
+    def find(id)
+      Person.find_by({ id: id, church: current_user.church })
     end
 end

@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
   def signed_in?
     !!current_user
   end
-  helper_method :current_user, :signed_in?
 
   def current_user=(user)
     @current_user = user
@@ -26,4 +25,10 @@ class ApplicationController < ActionController::Base
   def require_church!
     render 'errors/forbidden.html.erb', :status => :forbidden unless signed_in? && current_user.church
   end
+  
+  def not_found
+    render 'errors/not_found.html.erb', :status => :not_found
+  end
+  
+  helper_method :current_user, :signed_in?, :not_found
 end

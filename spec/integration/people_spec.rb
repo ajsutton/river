@@ -35,9 +35,5 @@ describe 'people module' do
       Dsl.setup.login_with_church :user2, :church2
       Dsl.people.has_people #none
     end
-    
-    it 'should not view people from other churches'
-    
-    it 'should not edit people from other churches'
   end
 end

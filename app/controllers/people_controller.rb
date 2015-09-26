@@ -21,15 +21,16 @@ class PeopleController < ApplicationController
   
   def edit
     @person = find(params[:id])
-    puts @person
     if (!@person)
       not_found
     end
   end
   
   def update
-    @person = Person.find(params[:id])
-    if @person.update(person_params)
+    @person = find(params[:id])
+    if !@person then
+      not_found
+    elsif @person.update(person_params)
       redirect_to people_path
     else
       render 'edit'

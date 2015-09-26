@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :church do |f|
     f.name 'My Church'
-    f.shortname 'thechurch'
+    sequence(:shortname) { |n| "church#{n}" }
   end
 end

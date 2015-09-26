@@ -9,6 +9,18 @@ RSpec.describe Field, type: :model do
     expect(build(:field, church: nil)).to be_invalid
   end
   
+  describe 'name' do
+    it 'is required' do
+      expect(build(:field, name: nil)).to be_invalid
+    end
+    
+    it 'must be unique within church and applies_to' do
+      church = create(:church)
+      create(:field, church: church, applies_to: 'people', name: 'a field')
+      expect(build(:field, church: church, applies_to: 'people', name: 'a field')).to be_invalid
+    end
+  end
+  
   describe 'applies_to' do
     it 'is required' do
       expect(build(:field, applies_to: nil)).to be_invalid

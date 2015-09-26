@@ -4,5 +4,6 @@ FactoryGirl.define do
     
     applies_to 'people'
     type 'string'
+    sequence(:name) { |n| "field#{n}" }
   end
 end

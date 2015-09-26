@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :field do |f|
     church
     
-    applies_to 'people'
+    applies_to 'person'
     type 'string'
     sequence(:name) { |n| "field#{n}" }
   end

@@ -16,8 +16,8 @@ RSpec.describe Field, type: :model do
     
     it 'must be unique within church and applies_to' do
       church = create(:church)
-      create(:field, church: church, applies_to: 'people', name: 'a field')
-      expect(build(:field, church: church, applies_to: 'people', name: 'a field')).to be_invalid
+      create(:field, church: church, applies_to: 'person', name: 'a field')
+      expect(build(:field, church: church, applies_to: 'person', name: 'a field')).to be_invalid
     end
   end
   
@@ -27,7 +27,7 @@ RSpec.describe Field, type: :model do
     end
     
     it 'must be one of the valid values' do
-      expect(build(:field, applies_to: 'people')).to be_valid
+      expect(build(:field, applies_to: 'person')).to be_valid
       expect(build(:field, applies_to: 'churches')).to be_invalid
     end
   end

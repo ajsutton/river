@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925040024) do
+ActiveRecord::Schema.define(version: 20150926034458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,18 @@ ActiveRecord::Schema.define(version: 20150925040024) do
   end
 
   add_index "churches", ["shortname"], name: "index_churches_on_shortname", unique: true, using: :btree
+
+  create_table "fields", force: :cascade do |t|
+    t.integer  "church_id"
+    t.string   "applies_to"
+    t.string   "type"
+    t.boolean  "required"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "fields", ["church_id", "applies_to"], name: "index_fields_on_church_id_and_applies_to", using: :btree
+  add_index "fields", ["church_id"], name: "index_fields_on_church_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.string  "uid"
@@ -55,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150925040024) do
 
   add_index "users", ["church_id"], name: "index_users_on_church_id", using: :btree
 
+  add_foreign_key "fields", "churches"
   add_foreign_key "people", "churches"
   add_foreign_key "users", "churches"
 end

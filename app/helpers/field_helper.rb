@@ -8,6 +8,8 @@ module FieldHelper
     case field.type
     when 'string'
       tag(:input, type: 'text', name: name, id: id, value: value)
+    when 'integer'
+      tag(:input, type: 'number', name: name, id: id, value: value)
     when 'boolean'
       tag(:input, type: 'checkbox', name: name, id: id, selected: value ? 'selected' : nil)
     else

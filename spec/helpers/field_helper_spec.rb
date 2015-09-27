@@ -52,5 +52,19 @@ RSpec.describe FieldHelper, type: :helper do
       expect(render_field(@field, build(:person, fields: { field_name: true }))).to have_tag 'input', :with => { :selected => 'selected' }
     end
   end
+  
+  describe 'integer fields' do
+    before :each do
+      @field = build(:field, name: 'field_name', applies_to: 'person', type: 'integer')
+    end
+    
+    it 'should generate an input tag' do
+      expect(render_field(@field)).to have_tag 'input', :with => { :type => 'number' }
+    end
+    
+    it 'should include the value when available' do
+      expect(render_field(@field, build(:person, fields: { field_name: 7 }))).to have_tag 'input', :with => { :value => '7' }
+    end
+  end
 end
 

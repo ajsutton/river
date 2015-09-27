@@ -66,5 +66,19 @@ RSpec.describe FieldHelper, type: :helper do
       expect(render_field(@field, build(:person, fields: { field_name: 7 }))).to have_tag 'input', :with => { :value => '7' }
     end
   end
+  
+  describe 'date fields' do
+    before :each do
+      @field = build(:field, name: 'field_name', applies_to: 'person', type: 'date')
+    end
+    
+    it 'should generate an input tag' do
+      expect(render_field(@field)).to have_tag 'input', :with => { :type => 'date' }
+    end
+    
+    it 'should include the value when available' do
+      expect(render_field(@field, build(:person, fields: { field_name: '2015-07-03' }))).to have_tag 'input', :with => { :value => '2015-07-03' }
+    end
+  end
 end
 

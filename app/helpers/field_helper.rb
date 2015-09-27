@@ -10,6 +10,8 @@ module FieldHelper
       tag(:input, type: 'text', name: name, id: id, value: value)
     when 'integer'
       tag(:input, type: 'number', name: name, id: id, value: value)
+    when 'date'
+      tag(:input, type: 'date', name: name, id: id, value: value)
     when 'boolean'
       tag(:input, type: 'checkbox', name: name, id: id, selected: value ? 'selected' : nil)
     else

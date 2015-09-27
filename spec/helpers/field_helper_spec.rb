@@ -23,6 +23,10 @@ RSpec.describe FieldHelper, type: :helper do
     expect(render_field(field)).to have_tag '*', :with => { :name => 'person[fields[field_name]]' }
   end
   
+  it 'should add custom options' do
+    expect(render_field(build(:field), nil, { class: 'form-control' })).to have_tag '*', :with => { :class => 'form-control' }
+  end
+  
   describe 'string fields' do
     before :each do
       @field = build(:field, name: 'field_name', applies_to: 'person', data_type: 'string')

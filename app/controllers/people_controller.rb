@@ -8,6 +8,7 @@ class PeopleController < ApplicationController
   
   def new
     @person = Person.new
+    load_custom_fields
   end
   
   def create
@@ -16,6 +17,7 @@ class PeopleController < ApplicationController
     if @person.save
       redirect_to people_path
     else
+      load_custom_fields
       render 'new'
     end
   end
@@ -25,6 +27,7 @@ class PeopleController < ApplicationController
     if (!@person)
       not_found
     end
+    load_custom_fields
   end
   
   def update
@@ -45,6 +48,10 @@ class PeopleController < ApplicationController
     
     def find(id)
       Person.find_by({ id: id, church: current_user.church })
+    end
+    
+    def load_custom_fields
+      @fields = Field.where({ church: current_user.church, applies_to: 'person' })
     end
 end
 

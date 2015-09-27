@@ -1,23 +1,36 @@
 # -*- encoding : utf-8 -*-
 module FieldHelper
   
-  def render_field(field, model = nil)
+  def render_field_label(field)
+    content_tag(:label, field.name, id: field_id(field))
+  end
+  
+  def render_field(field, model = nil, options = {})
     value = model && model.fields ? model.fields[field.name] : nil
-    name = "#{field.applies_to}[fields[#{field.name}]]"
-    id = "#{field.applies_to}_fields_#{field.name}"
+    options[:name] = "#{field.applies_to}[fields[#{field.name}]]"
+    options[:id] = field_id field
+    options[:value] = value
     case field.data_type
     when 'string'
-      tag(:input, type: 'text', name: name, id: id, value: value)
+      options[:type] = 'text'
     when 'integer'
-      tag(:input, type: 'number', name: name, id: id, value: value)
+      options[:type] = 'number'
     when 'date'
-      tag(:input, type: 'date', name: name, id: id, value: value)
+      options[:type] = 'date'
     when 'boolean'
-      tag(:input, type: 'checkbox', name: name, id: id, selected: value ? 'selected' : nil)
+      options[:type] = 'checkbox'
+      options[:value] = nil
+      options[:selected] = value ? 'selected' : nil
     else
       throw "Unsupported field type #{field.data_type}"
     end
+    tag(:input, options)
   end
   
+  private
+  
+  def field_id(field)
+    "#{field.applies_to}_fields_#{field.name}"
+  end
 end
 

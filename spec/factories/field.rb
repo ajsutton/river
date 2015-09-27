@@ -4,7 +4,7 @@ FactoryGirl.define do
     church
     
     applies_to 'person'
-    type 'string'
+    data_type 'string'
     sequence(:name) { |n| "field#{n}" }
   end
 end

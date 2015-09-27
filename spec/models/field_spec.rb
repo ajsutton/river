@@ -35,12 +35,12 @@ RSpec.describe Field, type: :model do
   
   describe 'type' do
     it 'is required' do
-      expect(build(:field, type: nil)).to be_invalid
+      expect(build(:field, data_type: nil)).to be_invalid
     end
     
     it 'must be one of the supported values' do
-      ['string', 'boolean', 'integer', 'date'].each { |val| expect(build(:field, type: val)).to be_valid }
-      expect(build(:field, type: 'foo')).to be_invalid
+      ['string', 'boolean', 'integer', 'date'].each { |val| expect(build(:field, data_type: val)).to be_valid }
+      expect(build(:field, data_type: 'foo')).to be_invalid
     end
   end
   

@@ -13,6 +13,7 @@ class PeopleController < ApplicationController
   
   def create
     @person = Person.new(person_params)
+    @person.fields = fields_to_json(custom_fields, params[:fields])
     @person.church = current_user.church
     if @person.save
       redirect_to people_path
@@ -34,10 +35,13 @@ class PeopleController < ApplicationController
     @person = find(params[:id])
     if !@person then
       not_found
-    elsif @person.update(person_params)
-      redirect_to people_path
     else
-      render 'edit'
+      @person.fields = fields_to_json(custom_fields, params[:person][:fields])
+      if @person.update(person_params)
+        redirect_to people_path
+      else
+        render 'edit'
+      end
     end
   end
   
@@ -51,7 +55,11 @@ class PeopleController < ApplicationController
     end
     
     def load_custom_fields
-      @fields = Field.where({ church: current_user.church, applies_to: 'person' })
+      @fields = custom_fields
+    end
+    
+    def custom_fields
+      Field.where({ church: current_user.church, applies_to: 'person' })
     end
 end
 

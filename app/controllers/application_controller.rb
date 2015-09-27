@@ -30,6 +30,15 @@ class ApplicationController < ActionController::Base
   def not_found
     render 'errors/not_found.html.erb', :status => :not_found
   end
+
+  def fields_to_json(fields, params)
+    if params
+      allowed_names = fields.map { |field| field.name }
+      params.select { |key,_| allowed_names.include? key }
+    else
+      nil
+    end
+  end
   
   helper_method :current_user, :signed_in?, :not_found
 end

@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   
   resources :churches
   resources :people
+
+  namespace :admin do
+    resource :people_fields, only: [:show,:update]
+  end
   
   # Sessions
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]

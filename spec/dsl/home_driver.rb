@@ -55,6 +55,16 @@ module DslUtil
       expect(find('.navbar')).to have_no_link('People')
     end
     
+    def admin_component_available!
+      view_home_page
+      expect(find('.navbar')).to have_link('Admin')
+    end
+    
+    def admin_component_unavailable!
+      view_home_page
+      expect(find('.navbar')).to have_no_link('Admin')
+    end
+    
     def create_church_available!
       view_home_page
       expect(find('.jumbotron')).to have_link('Setup Church')

@@ -22,6 +22,7 @@
         <li class="<%= 'active' if params[:controller] == 'welcome' %>"><%= link_to 'Home', root_path %></li>
 		<% if signed_in? && current_user.church %>
 			<li class="<%= 'active' if params[:controller] == 'people' %>"><%= link_to 'People', people_path %></li>
+			<li class="<%= 'active' if params[:controller] == 'admin_people_fields' %>"><%= link_to 'Admin', admin_people_fields_path %></li>
 		<% end %>
 	  </ul>
 	  <div class="pull-right">

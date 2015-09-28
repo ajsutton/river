@@ -39,9 +39,14 @@ module DslUtil
       expect(find('.navbar')).to have_css('.login')
     end
   
-    def logout_present!
+    def logout_present!(options)
       view_home_page
       expect(find('.navbar')).to have_css('.logout')
+      
+      if (options[:current_user])
+        logged_in_user = @users.get(options[:current_user])
+        expect(find('.navbar .navbar-text')).to have_text("Hello #{logged_in_user[:name]}")
+      end
     end
     
     def people_component_available!

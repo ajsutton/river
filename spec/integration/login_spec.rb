@@ -8,7 +8,7 @@ describe 'log in' do
     end
     
     it 'displays a logout button when logged in' do
-      home.logout_present!
+      home.logout_present! current_user: :user
     end
 
     describe 'with valid church' do

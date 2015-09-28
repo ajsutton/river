@@ -6,7 +6,8 @@ describe 'Admin' do
     setup.login_with_church :user, :church
   end
   
-  it 'should add new custom fields', js: true do
-    admin.add_person_field name: 'Custom Field 1', type: 'string', required: false
+  it 'should add new custom fields' do
+    admin.add_person_field name: 'Custom Field 1', type: 'String', required: false
+    people.add :person, fields: { 'Custom Field 1' => 'My Value' }
   end
 end

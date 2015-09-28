@@ -21,7 +21,7 @@ class Admin::PeopleFieldsController < ApplicationController
     @fields.fields = field_update.map do |field_options|
       {
         name: field_options[:name], 
-        type: field_options[:data_type], 
+        type: field_options[:type], 
         required: !!field_options[:required]
       }
     end

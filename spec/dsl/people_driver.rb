@@ -11,11 +11,12 @@ module DslUtil
     def add(personAlias, options = {})
       params = DslUtil.params(options, {
         first_name: 'John',
-        last_name: 'Doe'
+        last_name: 'Doe',
+        fields: {}
       })
       
       person = @people.get_or_create personAlias do |uniqueKey|
-        { first_name: params[:first_name], last_name: params[:last_name] }
+        { first_name: params[:first_name], last_name: params[:last_name], fields: params[:fields] }
       end
       
       open_people_index
@@ -79,6 +80,9 @@ module DslUtil
     def fill_in_details(person)
       fill_in 'person_first_name', :with => person[:first_name]
       fill_in 'person_last_name', :with => person[:last_name]
+      (person[:fields] || {}).each do |key, value|
+        fill_in "fields[#{key}]", :with => value
+      end
     end
   end
 end

@@ -1,0 +1,12 @@
+			<tr>
+				<td><input type="text" name="fields[][name]" value="<%= field[:name] %>" class="form-control"></td>
+				<td>
+					<select name="fields[][type]" class="form-control">
+						<option value="string" <% if field[:type] == 'string' %>selected<% end %>>String</option>
+						<option value="number" <% if field[:type] == 'number' %>selected<% end %>>Number</option>
+						<option value="boolean" <% if field[:type] == 'boolean' %>selected<% end %>>True/False</option>
+						<option value="date" <% if field[:type] == 'date' %>selected<% end %>>Date</option>
+					</select>
+				</td>
+				<td><input type="checkbox" name="fields[][required]" value="true" <% if field[:required] %>checked<% end %>> Required</td>
+			</tr>

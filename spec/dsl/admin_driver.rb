@@ -5,8 +5,21 @@ module DslUtil
     include ::RSpec::Matchers
 
     def add_person_field(options = {})
+      params = DslUtil.params(options, {
+        name: nil,
+        type: 'String',
+        required: false
+      })
       edit_people_fields
-      
+      row = find('.fields tbody tr:last-child')
+      row.fill_in 'fields[][name]', :with => params[:name]
+      row.select params[:type], :from => 'fields[][type]'
+      if (params[:required])
+        row.check 'fields[][required]'
+      else
+        row.uncheck 'fields[][required]'
+      end
+      click_button 'Save'
     end
     
     private

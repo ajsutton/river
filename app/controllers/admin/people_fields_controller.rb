@@ -6,6 +6,16 @@ class Admin::PeopleFieldsController < ApplicationController
   end
   
   def update
+    parse_fields params
+    if @fields.save
+      redirect_to admin_people_fields_path
+    else
+      render "show"
+    end
+  end
+
+  private
+  def parse_fields(params)
     field_update = params[:fields] || []
     @fields = custom_fields
     @fields.fields = field_update.map do |field_options|
@@ -15,14 +25,7 @@ class Admin::PeopleFieldsController < ApplicationController
         required: !!field_options[:required]
       }
     end
-    if @fields.save
-      redirect_to admin_people_fields_path
-    else
-      render "show"
-    end
   end
-  
-  private
   
   def custom_fields
     options = { applies_to: 'person', church: current_user.church }

@@ -2,7 +2,7 @@
 module FieldHelper
   
   def render_field_label(field)
-    content_tag(:label, field.name, id: field_id(field))
+    content_tag(:label, field[:name], id: field_id(field))
   end
   
   def render_field(field, model = nil, options = {})

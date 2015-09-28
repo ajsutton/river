@@ -2,24 +2,29 @@
 class Admin::PeopleFieldsController < ApplicationController
   
   def show
-    @fields = Field.where applies_to: 'person', church: current_user.church
+    @fields = custom_fields
   end
   
   def update
     field_update = params[:fields] || []
-    @fields = field_update.map do |field_options|
-      Field.new(
+    @fields = custom_fields
+    @fields.fields = field_update.map do |field_options|
+      {
         name: field_options[:name], 
-        data_type: field_options[:data_type], 
-        required: field_options[:required],
-        church: current_user.church,
-        applies_to: 'person'
-      )
+        type: field_options[:data_type], 
+        required: !!field_options[:required]
+      }
     end
-#    Field.where(applies_to: 'person', church: current_user.church).delete_all
-    if @fields.all? { |field| field.valid? }
+    if @fields.save
+      redirect_to admin_people_fields_path
     else
       render "show"
     end
+  end
+  
+  private
+  
+  def custom_fields
+    CustomField.find_by(applies_to: 'person', church: current_user.church) || CustomField.new(applies_to: 'person', church: current_user.church)
   end
 end

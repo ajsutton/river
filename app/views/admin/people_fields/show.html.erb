@@ -1,7 +1,5 @@
 <h1>Custom People Fields</h1>
-<% @fields.each do |field| %>
-	<%= render_errors(field) %>
-<% end %>
+<%= render_errors(@fields) %>
 <%= form_for :people_fields, method: 'PUT' do |f| %>
 	<table class="table table-striped fields">
 		<thead>
@@ -12,18 +10,18 @@
 		  </tr> 
 		</thead>
 		<tbody>
-		<% @fields.each_with_index do |field, idx| %>
+		<% @fields.fields.each_with_index do |field, idx| %>
 			<tr>
-				<td><input type="text" name="fields[][name]" value="<%= field.name %>" class="form-control"></td>
+				<td><input type="text" name="fields[][name]" value="<%= field[:name] %>" class="form-control"></td>
 				<td>
 					<select name="fields[][data_type]" class="form-control">
-						<option value="string" <% if field.data_type == 'string' %>selected<% end %>>String</option>
-						<option value="number" <% if field.data_type == 'number' %>selected<% end %>>Number</option>
-						<option value="boolean" <% if field.data_type == 'boolean' %>selected<% end %>>True/False</option>
-						<option value="date" <% if field.data_type == 'date' %>selected<% end %>>Date</option>
+						<option value="string" <% if field[:type] == 'string' %>selected<% end %>>String</option>
+						<option value="number" <% if field[:type] == 'number' %>selected<% end %>>Number</option>
+						<option value="boolean" <% if field[:type] == 'boolean' %>selected<% end %>>True/False</option>
+						<option value="date" <% if field[:type] == 'date' %>selected<% end %>>Date</option>
 					</select>
 				</td>
-				<td><input type="checkbox" name="fields[][required]" value="true" <% if field.required? %>checked<% end %>> Required</td>
+				<td><input type="checkbox" name="fields[][required]" value="true" <% if field[:required] %>checked<% end %>> Required</td>
 			</tr>
 		<% end %>
 		</tbody>

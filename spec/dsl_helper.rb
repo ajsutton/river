@@ -1,14 +1,13 @@
 # -*- encoding : utf-8 -*-
-require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara-screenshot/rspec'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
 require 'securerandom'
-
 require 'dsl/home_driver'
 require 'dsl/setup_driver'
 require 'dsl/people_driver'
-
 module DslUtil
   def DslUtil.params(supplied, options = {})
     supplied ||= {}
@@ -33,25 +32,17 @@ module DslUtil
 end
 
 
+
 module Dsl
-  users = DslUtil::AliasedObjectStore.new
-  churches = DslUtil::AliasedObjectStore.new
-  people = DslUtil::AliasedObjectStore.new
-  
-  @homeDriver = DslUtil::HomeDriver.new(users)
-  @setupDriver = DslUtil::SetupDriver.new(churches)
-  @peopleDriver = DslUtil::PeopleDriver.new(people)
-  
-  def Dsl.home
-    @homeDriver
+  def home
+    @homeDriver ||= DslUtil::HomeDriver.new(DslUtil::AliasedObjectStore.new)
   end
-  
-  def Dsl.setup
-    @setupDriver
+
+  def setup
+    @setupDriver ||= DslUtil::SetupDriver.new(DslUtil::AliasedObjectStore.new, home)
   end
-  
-  def Dsl.people
-    @peopleDriver
+
+  def people
+    @peopleDriver ||= DslUtil::PeopleDriver.new(DslUtil::AliasedObjectStore.new)
   end
 end
-

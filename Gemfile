@@ -57,6 +57,6 @@ group :test do
   gem 'rspec-html-matchers'
   gem 'capybara'
   gem 'capybara-screenshot'
-  # gem 'poltergeist' # PhantomJS driver for capybara
+  gem 'poltergeist' # PhantomJS driver for capybara
 end
 

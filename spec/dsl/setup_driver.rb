@@ -4,8 +4,9 @@ module DslUtil
     include Capybara::DSL
     include ::RSpec::Matchers
     
-    def initialize(churches)
+    def initialize(churches, home)
       @churches = churches
+      @home = home
     end
     
     def create_church(churchAlias, options = {})
@@ -29,7 +30,7 @@ module DslUtil
         email_domain: 'example.com'
       })
       
-      Dsl.home.login userAlias, { name: params[:user_name], email_domain: params[:email_domain] }
+      @home.login userAlias, { name: params[:user_name], email_domain: params[:email_domain] }
       create_church(churchAlias, { name: params[:church_name] })
     end
   end

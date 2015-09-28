@@ -21,7 +21,6 @@ module DslUtil
       user = @users.get_or_create userAlias do |uniqueKey|
         { name: params[:name], email: "#{uniqueKey}@#{params[:emailDomain]}" }
       end
-      
       view_home_page
       find('.navbar .login').click
       fill_in 'name', :with => user[:name]

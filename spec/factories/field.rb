@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  factory :field do |f|
+  factory :old_field, class: Field do |f|
     church
     
     applies_to 'person'

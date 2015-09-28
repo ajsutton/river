@@ -13,4 +13,3 @@ class Field < ActiveRecord::Base
     self.required = false if self.required.nil?
   end
 end
-

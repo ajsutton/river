@@ -14,13 +14,13 @@ require 'rails_helper'
 RSpec.describe FieldHelper, type: :helper do
   
   it 'should generate an id' do
-    field = build(:field, name: 'field_name', applies_to: 'person')
-    expect(render_field(field)).to have_tag '*', :with => { :id => 'person_fields_field_name' }
+    field = build(:field, name: 'field_name')
+    expect(render_field(field)).to have_tag '*', :with => { :id => 'fields_field_name' }
   end
   
   it 'should generate a name' do
-    field = build(:field, name: 'field_name', applies_to: 'person')
-    expect(render_field(field)).to have_tag '*', :with => { :name => 'person[fields[field_name]]' }
+    field = build(:field, name: 'field_name')
+    expect(render_field(field)).to have_tag '*', :with => { :name => 'fields[field_name]' }
   end
   
   it 'should add custom options' do
@@ -29,7 +29,7 @@ RSpec.describe FieldHelper, type: :helper do
   
   describe 'string fields' do
     before :each do
-      @field = build(:field, name: 'field_name', applies_to: 'person', type: 'string')
+      @field = build(:field, name: 'field_name', type: 'string')
     end
     
     it 'should generate an input tag' do
@@ -43,7 +43,7 @@ RSpec.describe FieldHelper, type: :helper do
   
   describe 'boolean fields' do
     before :each do
-      @field = build(:field, name: 'field_name', applies_to: 'person', type: 'boolean')
+      @field = build(:field, name: 'field_name', type: 'boolean')
     end
     
     it 'should generate an input tag' do
@@ -59,7 +59,7 @@ RSpec.describe FieldHelper, type: :helper do
   
   describe 'integer fields' do
     before :each do
-      @field = build(:field, name: 'field_name', applies_to: 'person', type: 'integer')
+      @field = build(:field, name: 'field_name', type: 'integer')
     end
     
     it 'should generate an input tag' do
@@ -73,7 +73,7 @@ RSpec.describe FieldHelper, type: :helper do
   
   describe 'date fields' do
     before :each do
-      @field = build(:field, name: 'field_name', applies_to: 'person', type: 'date')
+      @field = build(:field, name: 'field_name', type: 'date')
     end
     
     it 'should generate an input tag' do

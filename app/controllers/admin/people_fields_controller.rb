@@ -25,6 +25,7 @@ class Admin::PeopleFieldsController < ApplicationController
   private
   
   def custom_fields
-    CustomField.find_by(applies_to: 'person', church: current_user.church) || CustomField.new(applies_to: 'person', church: current_user.church)
+    options = { applies_to: 'person', church: current_user.church }
+    CustomField.find_by(options) || CustomField.new(options)
   end
 end

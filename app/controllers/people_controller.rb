@@ -36,7 +36,8 @@ class PeopleController < ApplicationController
     if !@person then
       not_found
     else
-      @person.fields = fields_to_json(custom_fields, params[:person][:fields])
+      @person.fields = fields_to_json(custom_fields, params[:fields])
+      Rails.logger.info("FOO #{@person.fields}")
       if @person.update(person_params)
         redirect_to people_path
       else

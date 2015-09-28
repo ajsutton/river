@@ -7,7 +7,7 @@ module FieldHelper
   
   def render_field(field, model = nil, options = {})
     value = model && model.fields ? model.fields[field[:name]] : nil
-    options[:name] = "#{field[:applies_to]}[fields[#{field[:name]}]]"
+    options[:name] = "fields[#{field[:name]}]"
     options[:id] = field_id field
     options[:value] = value
     case field[:type]
@@ -30,7 +30,7 @@ module FieldHelper
   private
   
   def field_id(field)
-    "#{field[:applies_to]}_fields_#{field[:name]}"
+    "fields_#{field[:name]}"
   end
 end
 

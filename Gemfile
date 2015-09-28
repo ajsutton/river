@@ -30,6 +30,8 @@ gem 'omniauth'
 
 gem 'pg'
 
+gem 'require_all'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

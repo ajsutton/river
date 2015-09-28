@@ -5,9 +5,9 @@ require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
 require 'securerandom'
-require 'dsl/home_driver'
-require 'dsl/setup_driver'
-require 'dsl/people_driver'
+require 'require_all'
+require_all 'spec/dsl'
+
 module DslUtil
   def DslUtil.params(supplied, options = {})
     supplied ||= {}
@@ -44,5 +44,9 @@ module Dsl
 
   def people
     @peopleDriver ||= DslUtil::PeopleDriver.new(DslUtil::AliasedObjectStore.new)
+  end
+  
+  def admin
+    @adminDriver ||= DslUtil::AdminDriver.new
   end
 end

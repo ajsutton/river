@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   before_action :require_church!
   
   def index
-    @people = Person.where(church: current_user.church)
+    @people = Person.where(church: current_user.church).page(params[:page])
   end
   
   def new

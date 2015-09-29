@@ -32,6 +32,8 @@ gem 'pg'
 
 gem 'require_all'
 
+gem 'will_paginate'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -16,15 +16,15 @@ class Admin::PeopleFieldsController < ApplicationController
 
   private
   def parse_fields(params)
-    field_update = params[:fields] || []
     @fields = custom_fields
-    @fields.fields = field_update.map do |field_options|
+    @fields.fields = (params[:fields] || []).map do |field_options|
       {
         name: field_options[:name], 
         type: field_options[:type], 
         required: !!field_options[:required]
       }
     end
+    @fields.fields = @fields.fields.reject { |field| field[:name].blank? }
   end
   
   def custom_fields

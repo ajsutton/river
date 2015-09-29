@@ -20,7 +20,7 @@ RSpec.describe FieldHelper, type: :helper do
   
   it 'should generate a name' do
     field = build(:field, name: 'field_name')
-    expect(render_field(field)).to have_tag '*', :with => { :name => 'fields[field_name]' }
+    expect(render_field(field)).to have_tag '*', :with => { :name => "fields[#{field[:id]}]" }
   end
   
   it 'should add custom options' do
@@ -37,7 +37,7 @@ RSpec.describe FieldHelper, type: :helper do
     end
     
     it 'should include the value when available' do
-      expect(render_field(@field, build(:person, fields: { field_name: 'field value' }))).to have_tag 'input', :with => { :value => 'field value' }
+      expect(render_field(@field, build(:person, fields: { @field[:id] => 'field value' }))).to have_tag 'input', :with => { :value => 'field value' }
     end
   end  
   
@@ -53,7 +53,7 @@ RSpec.describe FieldHelper, type: :helper do
     end
     
     it 'should include the value when available' do
-      expect(render_field(@field, build(:person, fields: { field_name: true }))).to have_tag 'input', :with => { :selected => 'selected' }
+      expect(render_field(@field, build(:person, fields: { @field[:id] => true }))).to have_tag 'input', :with => { :selected => 'selected' }
     end
   end
   
@@ -67,7 +67,7 @@ RSpec.describe FieldHelper, type: :helper do
     end
     
     it 'should include the value when available' do
-      expect(render_field(@field, build(:person, fields: { field_name: 7 }))).to have_tag 'input', :with => { :value => '7' }
+      expect(render_field(@field, build(:person, fields: { @field[:id] => 7 }))).to have_tag 'input', :with => { :value => '7' }
     end
   end
   
@@ -81,7 +81,7 @@ RSpec.describe FieldHelper, type: :helper do
     end
     
     it 'should include the value when available' do
-      expect(render_field(@field, build(:person, fields: { field_name: '2015-07-03' }))).to have_tag 'input', :with => { :value => '2015-07-03' }
+      expect(render_field(@field, build(:person, fields: { @field[:id] => '2015-07-03' }))).to have_tag 'input', :with => { :value => '2015-07-03' }
     end
   end
 end

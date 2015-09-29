@@ -1,5 +1,8 @@
 			<tr>
-				<td><input type="text" name="fields[][name]" value="<%= field[:name] %>" class="form-control"></td>
+				<td>
+					<input type="hidden" name="fields[][id]" value="<%= field[:id] %>">
+					<input type="text" name="fields[][name]" value="<%= field[:name] %>" class="form-control">
+				</td>
 				<td>
 					<select name="fields[][type]" class="form-control">
 						<option value="string" <% if field[:type] == 'string' %>selected<% end %>>String</option>

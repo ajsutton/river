@@ -32,10 +32,8 @@ class ApplicationController < ActionController::Base
   end
 
   def fields_to_json(fields, params)
-    Rails.logger.info("Params #{params} - fields #{fields}")
     if params
-      allowed_names = fields.map { |field| field[:name] }
-      Rails.logger.info("Allowed names #{allowed_names}")
+      allowed_names = fields.map { |field| field[:id] }
       params.select { |key,_| allowed_names.include? key }
     else
       nil

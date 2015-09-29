@@ -8,6 +8,7 @@ FactoryGirl.define do
   
   factory :field, class: Hash do |f|
     sequence(:name) { |n| "field#{n}" }
+    sequence(:id) { |n| "#{n}" }
     type 'string'
     required false
     

@@ -6,8 +6,8 @@ module FieldHelper
   end
   
   def render_field(field, model = nil, options = {})
-    value = model && model.fields ? model.fields[field[:name]] : nil
-    options[:name] = "fields[#{field[:name]}]"
+    value = model && model.fields ? model.fields[field[:id]] : nil
+    options[:name] = "fields[#{field[:id]}]"
     options[:id] = field_id field
     options[:value] = value
     case field[:type]

@@ -19,6 +19,7 @@ class Admin::PeopleFieldsController < ApplicationController
     @fields = custom_fields
     @fields.fields = (params[:fields] || []).map do |field_options|
       {
+        id: field_options[:id].blank? ? SecureRandom.uuid : field_options[:id],
         name: field_options[:name], 
         type: field_options[:type], 
         required: !!field_options[:required]

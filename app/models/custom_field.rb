@@ -34,12 +34,16 @@ class CustomField < ActiveRecord::Base
     elsif self.fields.nil?
       self.errors.add :fields, 'Fields must be specified'
     else
+      used_ids = {}
       self.fields.each do |field|
         self.errors.add :base, 'Name must be specified' if field['name'].blank?
         self.errors.add :base, 'Type must be specified' unless %w(string boolean integer date).include? field['type']
         
         required = field['required']
         self.errors.add :base, 'Required must be true or false' unless required.is_a?(TrueClass) || required.is_a?(FalseClass) || required.nil?
+        self.errors.add :base, 'All fields must have an ID assigned' if field['id'].blank?
+        self.errors.add :base, 'All fields must have a unique ID' if used_ids[field['id']]
+        used_ids[field['id']] = true
       end
     end
   end

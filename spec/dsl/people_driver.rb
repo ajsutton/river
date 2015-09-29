@@ -81,7 +81,7 @@ module DslUtil
       fill_in 'person_first_name', :with => person[:first_name]
       fill_in 'person_last_name', :with => person[:last_name]
       (person[:fields] || {}).each do |key, value|
-        fill_in "fields[#{key}]", :with => value
+        fill_in "fields_#{key}", :with => value
       end
     end
   end

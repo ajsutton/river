@@ -5,6 +5,11 @@ River
 
 River is a combination of experimenting with ruby and experimenting with software needed for running a church.
 
+Requirements
+------------
+
+Apart from ruby and the gems listed in Gemfile, the database must be postgresql 9.4 (required for the jsonb support).
+
 Running Tests
 -------------
 

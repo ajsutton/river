@@ -1,0 +1,9 @@
+<% content_for :content do %>
+<ul class="nav nav-pills">
+	<li role="presentation" class="active"><a href="<%= people_path %>?view=default">Default</a></li>
+	<li role="presentation"><a href="<%= new_view_path %>">+</a></li>
+</ul>
+<br>
+<%= content_for?(:people_content) ? yield(:people_content) : yield %>
+<% end %>
+<%= render template: "layouts/application" %>

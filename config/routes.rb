@@ -3,9 +3,17 @@ Rails.application.routes.draw do
   
   root 'welcome#index'
   
+  concern :viewable do |options|
+    collection do
+      resources :views, only: [:new,:create,:show,:update,:destroy], defaults: options
+    end
+  end
+  
   resources :churches
-  resources :people
-
+  resources :people do
+    concerns :viewable, applies_to: 'person'
+  end
+  
   namespace :admin do
     resource :people_fields, only: [:show,:update]
   end

@@ -20,7 +20,7 @@ module FieldHelper
     when 'boolean'
       options[:type] = 'checkbox'
       options[:value] = nil
-      options[:selected] = value ? 'selected' : nil
+      options[:checked] = value ? 'checked' : nil
     else
       throw "Unsupported field type #{field[:type]}"
     end

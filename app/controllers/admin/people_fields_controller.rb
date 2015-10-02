@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Admin::PeopleFieldsController < ApplicationController
-  
+
   def show
     @fields = custom_fields
   end
-  
+
   def update
     parse_fields params
     if @fields.save
@@ -20,16 +20,16 @@ class Admin::PeopleFieldsController < ApplicationController
     @fields.fields = (params[:fields] || []).map do |field_options|
       {
         id: field_options[:id].blank? ? SecureRandom.uuid : field_options[:id],
-        name: field_options[:name], 
-        type: field_options[:type], 
+        name: field_options[:name],
+        type: field_options[:type],
         required: !!field_options[:required]
       }
     end
     @fields.fields = @fields.fields.reject { |field| field[:name].blank? }
   end
-  
+
   def custom_fields
     options = { applies_to: 'person', church: current_user.church }
-    CustomField.find_by(options) || CustomField.new(options)
+    FieldSchema.find_by(options) || FieldSchema.new(options)
   end
 end

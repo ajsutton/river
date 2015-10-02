@@ -62,7 +62,7 @@ class PeopleController < ApplicationController
     end
 
     def custom_fields
-      schema = CustomField.find_by({ church: current_user.church, applies_to: 'person' })
+      schema = FieldSchema.find_by({ church: current_user.church, applies_to: 'person' })
       schema.nil? ? [] : schema.fields
     end
 end

@@ -24,7 +24,7 @@ class ViewsController < ApplicationController
     private
 
     def custom_fields(applies_to)
-        schema = CustomField.find_by({ church: current_user.church, applies_to: applies_to })
+        schema = FieldSchema.find_by({ church: current_user.church, applies_to: applies_to })
         schema.nil? ? [] : schema.fields
     end
 

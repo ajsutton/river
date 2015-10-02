@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 module FieldHelper
-  
+
   def render_field_label(field)
     content_tag(:label, field[:name], id: field_id(field))
   end
-  
+
   def render_field(field, model = nil, options = {})
     value = model && model.fields ? model.fields[field[:id]] : nil
     options[:name] = "fields[#{field[:id]}]"
@@ -26,11 +26,10 @@ module FieldHelper
     end
     tag(:input, options)
   end
-  
+
   private
-  
+
   def field_id(field)
     "fields_#{field[:name]}"
   end
 end
-

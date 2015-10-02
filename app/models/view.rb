@@ -9,7 +9,7 @@ class View < ActiveRecord::Base
 
   def load_fields
       if self.fields && !self.fields.empty?
-          CustomField.find_by(church: self.church, applies_to: self.applies_to).fields.find_all { |field| self.fields.include? field[:id] }
+          FieldSchema.find_by(church: self.church, applies_to: self.applies_to).fields.find_all { |field| self.fields.include? field[:id] }
       else
           []
       end

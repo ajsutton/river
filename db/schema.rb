@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929111714) do
+ActiveRecord::Schema.define(version: 20151002045502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150929111714) do
 
   add_index "churches", ["shortname"], name: "index_churches_on_shortname", unique: true, using: :btree
 
-  create_table "custom_fields", force: :cascade do |t|
+  create_table "field_schemas", force: :cascade do |t|
     t.integer  "church_id"
     t.string   "applies_to"
     t.jsonb    "fields"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20150929111714) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "custom_fields", ["church_id", "applies_to"], name: "index_custom_fields_on_church_id_and_applies_to", using: :btree
-  add_index "custom_fields", ["church_id"], name: "index_custom_fields_on_church_id", using: :btree
+  add_index "field_schemas", ["church_id", "applies_to"], name: "index_field_schemas_on_church_id_and_applies_to", using: :btree
+  add_index "field_schemas", ["church_id"], name: "index_field_schemas_on_church_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.string  "uid"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150929111714) do
   add_index "views", ["church_id", "applies_to", "name"], name: "index_views_on_church_id_and_applies_to_and_name", using: :btree
   add_index "views", ["church_id"], name: "index_views_on_church_id", using: :btree
 
-  add_foreign_key "custom_fields", "churches"
+  add_foreign_key "field_schemas", "churches"
   add_foreign_key "people", "churches"
   add_foreign_key "users", "churches"
   add_foreign_key "views", "churches"

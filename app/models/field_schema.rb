@@ -12,7 +12,7 @@ class FieldSchema < ActiveRecord::Base
   after_initialize :init
 
   def id_for_name(name)
-      field = self.fields.find { |field| field[:name] == name }
+      field = self.fields.find { |field| field[:name].eql? name }
       field.nil? ? nil : field[:id]
   end
 

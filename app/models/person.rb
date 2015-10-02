@@ -12,14 +12,23 @@ class Person < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def custom_field(name)
-      @schema.id_for_name(name)
+  def get_field(name)
+      id = field_schema.id_for_name(name)
+      self.fields[id]
+  end
+
+  def set_field(name, value)
+      id = field_schema.id_for_name(name)
+      self.fields[id] = value
   end
 
   private
   def init
     self.fields = {} if self.fields.nil?
-    type = 'person'
-    @schema = FieldSchema.find_by(church: church, applies_to: type) || FieldSchema.new(church: church, applies_to: type)
+  end
+
+  def field_schema
+      @schema ||= FieldSchema.find_by(church: self.church, applies_to: 'person')
+      @schema || FieldSchema.new(church: church, applies_to: 'person')
   end
 end

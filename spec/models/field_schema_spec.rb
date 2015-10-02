@@ -10,6 +10,18 @@ RSpec.describe FieldSchema, type: :model do
     expect(build(:field_schema, church: nil)).to be_invalid
   end
 
+  it 'can convert field name to ID' do
+      field1 = build(:field, name: 'Field1')
+      field2 = build(:field, name: 'Field2')
+      schema = build(:field_schema, fields: [ field1, field2 ])
+      expect(schema.id_for_name 'Field1').to eq field1[:id]
+      expect(schema.id_for_name 'Field2').to eq field2[:id]
+  end
+
+  it 'returns nil when field name is unknown' do
+      expect(build(:field_schema).id_for_name 'MyField1').to be nil
+  end
+
   describe 'applies_to' do
     it 'is required' do
       expect(build(:field_schema, applies_to: nil)).to be_invalid

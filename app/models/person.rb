@@ -22,6 +22,10 @@ class Person < ActiveRecord::Base
       self.fields[id] = value
   end
 
+  def field_definitions
+      field_schema.fields
+  end
+
   private
   def init
     self.fields = {} if self.fields.nil?

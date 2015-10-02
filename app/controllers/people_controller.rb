@@ -9,18 +9,16 @@ class PeopleController < ApplicationController
   end
 
   def new
-    @person = Person.new
-    load_custom_fields
+    @person = Person.new(church: current_user.church)
   end
 
   def create
     @person = Person.new(person_params)
-    @person.fields = fields_to_json(custom_fields, params[:fields])
     @person.church = current_user.church
+    @person.fields = fields_to_json(@person.field_definitions, params[:fields])
     if @person.save
       redirect_to people_path
     else
-      load_custom_fields
       render 'new'
     end
   end
@@ -30,7 +28,6 @@ class PeopleController < ApplicationController
     if (!@person)
       not_found
     end
-    load_custom_fields
   end
 
   def update
@@ -38,8 +35,7 @@ class PeopleController < ApplicationController
     if !@person then
       not_found
     else
-      @person.fields = fields_to_json(custom_fields, params[:fields])
-      Rails.logger.info("FOO #{@person.fields}")
+      @person.fields = fields_to_json(@person.field_definitions, params[:fields])
       if @person.update(person_params)
         redirect_to people_path
       else
@@ -55,14 +51,5 @@ class PeopleController < ApplicationController
 
     def find(id)
       Person.find_by({ id: id, church: current_user.church })
-    end
-
-    def load_custom_fields
-      @fields = custom_fields
-    end
-
-    def custom_fields
-      schema = FieldSchema.find_by({ church: current_user.church, applies_to: 'person' })
-      schema.nil? ? [] : schema.fields
     end
 end

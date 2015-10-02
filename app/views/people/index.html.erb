@@ -1,11 +1,24 @@
+<ul class="nav nav-pills">
+	<% @views.each do |view| %>
+		<li role="presentation" <% if active_view? view %>class="active"<% end %>><a href="<%= people_path %>?view=<%= view.id %>"><%= view.name %></a></li>
+	<% end %>
+	<li role="presentation"><a href="<%= new_view_path %>">+</a></li>
+</ul>
+<br>
 <table class="table table-striped people">
   <tr>
-    <th>Name</th>
+      <th>Name</th>
+      <% @current_view.load_fields.each do |field| %>
+        <th><%= field[:name] %></th>
+      <% end %>
   </tr>
- 
+
   <% @people.each do |person| %>
     <tr>
-      <td><%= link_to person.name, edit_person_path(person), class: 'name' %></td>
+        <td><%= link_to person.name, edit_person_path(person), class: 'name' %></td>
+        <% @current_view.load_fields.each do |field| %>
+            <td><%= person.fields.nil? ? '' : person.fields[field[:id]] %></td>
+        <% end %>
     </tr>
   <% end %>
 </table>

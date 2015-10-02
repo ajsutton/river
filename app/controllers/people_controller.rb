@@ -15,7 +15,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     @person.church = current_user.church
-    @person.fields = fields_to_json(@person.field_definitions, params[:fields])
+    @person.fields_from_params(params[:fields])
     if @person.save
       redirect_to people_path
     else
@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
     if !@person then
       not_found
     else
-      @person.fields = fields_to_json(@person.field_definitions, params[:fields])
+      @person.fields_from_params(params[:fields])
       if @person.update(person_params)
         redirect_to people_path
       else

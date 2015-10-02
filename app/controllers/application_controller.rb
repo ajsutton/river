@@ -18,28 +18,18 @@ class ApplicationController < ActionController::Base
     @current_user = user
     session[:user_id] = user.nil? ? nil : user.id
   end
-  
+
   def require_user!
     render 'errors/forbidden.html.erb', :status => :forbidden unless signed_in?
   end
-  
+
   def require_church!
     render 'errors/forbidden.html.erb', :status => :forbidden unless signed_in? && current_user.church
   end
-  
+
   def not_found
     render 'errors/not_found.html.erb', :status => :not_found
   end
 
-  def fields_to_json(fields, params)
-    if params
-      allowed_names = fields.map { |field| field[:id] }
-      params.select { |key,_| allowed_names.include? key }
-    else
-      nil
-    end
-  end
-  
   helper_method :current_user, :signed_in?, :not_found
 end
-

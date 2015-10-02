@@ -22,6 +22,12 @@ class Person < ActiveRecord::Base
       self.fields[id] = value
   end
 
+  def fields_from_params(params)
+      field_definitions.each do |field|
+          set_field(field[:name], params[field[:id]])
+      end
+  end
+
   def field_definitions
       field_schema.fields
   end

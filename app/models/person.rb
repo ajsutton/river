@@ -9,7 +9,7 @@ class Person < ActiveRecord::Base
   after_initialize :init
 
   def name
-    return "#{first_name} #{last_name}"
+    "#{first_name} #{last_name}"
   end
 
   private

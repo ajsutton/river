@@ -1,4 +1,4 @@
-<ul class="nav nav-pills">
+<ul class="nav nav-pills views">
 	<% @views.each do |view| %>
 		<li role="presentation" <% if active_view? view %>class="active"<% end %>><a href="<%= people_path %>?view=<%= view.id %>"><%= view.name %></a></li>
 	<% end %>

@@ -5,7 +5,7 @@ class ViewsController < ApplicationController
     def new
         @view = View.new church: current_user.church, applies_to: params[:applies_to]
         @fields = custom_fields params[:applies_to]
-        render 'new', layout: params[:applies_to].pluralize
+        render 'new'
     end
 
     def create

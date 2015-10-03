@@ -9,6 +9,10 @@ module DslUtil
       @people = people
     end
 
+    def views
+        @views ||= ViewsDriver.new(DslUtil::AliasedObjectStore.new)
+    end
+
     def add(personAlias, options = {})
       params = parse_params(options, {
         first_name: 'John',
@@ -82,7 +86,13 @@ module DslUtil
       fill_in 'person_first_name', :with => person.first_name
       fill_in 'person_last_name', :with => person.last_name
       (person.fields || {}).each do |key, value|
-        fill_in "fields_#{key}", :with => value
+          if value == true
+              check("fields_#{key}")
+          elsif value == false
+              uncheck("fields_#{key}")
+          else
+              fill_in "fields_#{key}", :with => value
+          end
       end
     end
   end

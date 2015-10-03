@@ -3,9 +3,10 @@ module DslUtil
   class AdminDriver
     include Capybara::DSL
     include ::RSpec::Matchers
+    include DslUtil
 
     def add_person_field(options = {})
-      params = DslUtil.params(options, {
+      params = parse_params(options, {
         name: nil,
         type: 'String',
         required: false
@@ -21,9 +22,9 @@ module DslUtil
       end
       click_button 'Save'
     end
-    
+
     private
-    
+
     def edit_people_fields
       find('.navbar').click_link 'Admin'
     end

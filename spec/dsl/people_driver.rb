@@ -17,7 +17,7 @@ module DslUtil
       })
 
       person = @people.get_or_create personAlias do |uniqueKey|
-          DslPerson.new params[:first_name], params[:last_name], params[:fields]
+          Person.new params[:first_name], params[:last_name], params[:fields]
       end
 
       open_people_index
@@ -87,7 +87,7 @@ module DslUtil
     end
   end
 
-  class DslPerson
+  class Person
       attr_accessor :first_name, :last_name, :fields
 
       def initialize(first_name, last_name, fields)

@@ -17,7 +17,7 @@ module DslUtil
       })
 
       person = @people.get_or_create personAlias do |uniqueKey|
-        { first_name: params[:first_name], last_name: params[:last_name], fields: params[:fields] }
+          DslPerson.new params[:first_name], params[:last_name], params[:fields]
       end
 
       open_people_index
@@ -37,8 +37,8 @@ module DslUtil
       open_people_index
       click_link name_for(person)
 
-      person[:first_name] = params[:first_name]
-      person[:last_name] = params[:last_name]
+      person.first_name = params[:first_name]
+      person.last_name = params[:last_name]
 
       fill_in_details person
       click_button 'Update Person'
@@ -75,15 +75,25 @@ module DslUtil
     end
 
     def name_for(person)
-      "#{person[:first_name]} #{person[:last_name]}"
+      "#{person.first_name} #{person.last_name}"
     end
 
     def fill_in_details(person)
-      fill_in 'person_first_name', :with => person[:first_name]
-      fill_in 'person_last_name', :with => person[:last_name]
-      (person[:fields] || {}).each do |key, value|
+      fill_in 'person_first_name', :with => person.first_name
+      fill_in 'person_last_name', :with => person.last_name
+      (person.fields || {}).each do |key, value|
         fill_in "fields_#{key}", :with => value
       end
     end
+  end
+
+  class DslPerson
+      attr_accessor :first_name, :last_name, :fields
+
+      def initialize(first_name, last_name, fields)
+          @first_name = first_name
+          @last_name = last_name
+          @fields = fields
+      end
   end
 end

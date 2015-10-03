@@ -9,12 +9,11 @@ class ViewsController < ApplicationController
     end
 
     def create
-        Rails.logger.info params[:fields]
         @view = View.new view_params
         @view.church = current_user.church
         @view.applies_to = params[:applies_to]
         if @view.save
-            redirect_to people_path
+            redirect_to people_path(view: @view.id)
         else
             @fields = custom_fields params[:applies_to]
             render "new"

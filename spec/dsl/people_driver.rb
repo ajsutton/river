@@ -58,6 +58,14 @@ module DslUtil
       expect(actual_names).to eq(expected_names)
     end
 
+    def has_columns(*expected_columns)
+        open_people_index
+
+        expected_columns.each do |column|
+            expect(find('.people')).to have_content column
+        end
+    end
+
     def navigate_to_index(options = {})
       params = parse_params(options, {
         expect: :ok

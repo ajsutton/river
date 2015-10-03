@@ -23,6 +23,7 @@ module DslUtil
             params[:fields].each do |fieldName|
                 check fieldName
             end
+            click_button 'Save'
         end
     end
 end

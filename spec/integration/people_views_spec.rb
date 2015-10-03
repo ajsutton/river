@@ -11,5 +11,6 @@ describe 'People Views' do
     it 'should create a new view' do
         people.views.create :view, fields: [ 'Custom Field 1', 'Custom Field 2']
         people.has_people :person1
+        people.has_columns 'Name', 'Custom Field 1', 'Custom Field 2'
     end
 end

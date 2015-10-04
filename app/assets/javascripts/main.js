@@ -1,0 +1,3 @@
+$(function() {
+    modulejs.require('view');
+});

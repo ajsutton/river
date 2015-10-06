@@ -9,10 +9,7 @@ modulejs.define('view', function() {
             element.jui_filter_rules({
                 bootstrap_version: '3',
                 filters: filters,
-                onValidationError: function(event, data) {
-                    alert(data["err_description"] + ' (' + data["err_code"] + ')');
-                    data.elem_filter.focus();
-                }
+                onValidationError: onValidationError
             })
             var formField = $('<input type="hidden" name="' + element.attr('id') + '">');
             element.after(formField);
@@ -24,6 +21,11 @@ modulejs.define('view', function() {
             });
         });
     });
+
+    function onValidationError(event, data) {
+        alert(data["err_description"] + ' (' + data["err_code"] + ')');
+        data.elem_filter.focus();
+    }
 
     function filtersForFields(fields) {
         var filters = [];

@@ -33,10 +33,38 @@ describe Person, type: :model do
   end
 
   it 'stores arbitrary fields' do
-    fields = { 'a field!@#$%^&*()[]{}_-="\'' => 'b💩', 'd💩' => 3, 'f' => true }
+    fields = { 'f' => true, 'a field!@#$%^&*()[]{}_-="\'' => 'b💩', 'd💩' => 3 }
     person = build(:person, fields: fields)
     expect(person.save).to be true
     person.reload
     expect(person.fields).to eq(fields)
+  end
+
+  describe 'where_view' do
+      before :each do
+          @church = create(:church)
+          @other_church = create(:church)
+          @person1 = create(:person, first_name: 'Joe', last_name: 'Black', church: @church)
+          @person2 = create(:person, first_name: 'Jo', last_name: 'White', church: @church)
+          @person3 = create(:person, first_name: 'John', last_name: 'Brown', church: @church)
+          @person4 = create(:person, first_name: 'Lynn', last_name: 'Blue', church: @other_church)
+          @view = create(:view, church: @church)
+      end
+
+      it 'only includes people from the current church' do
+          expect(Person.where_view(@view)).to contain_exactly(@person1, @person2, @person3)
+      end
+
+      it 'applies simple view filters' do
+          @view.filters = [
+              {
+                  element_rule_id:"rule_filters_1",
+                  condition: {
+                      filterType: "text", field:"first_name", operator:"equal", filterValue:["John"]
+                  },
+                  logical_operator:"AND"
+              }]
+          expect(Person.where_view(@view)).to contain_exactly(@person3)
+      end
   end
 end

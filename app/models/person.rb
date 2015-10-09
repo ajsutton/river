@@ -8,7 +8,16 @@ class Person < ActiveRecord::Base
     validates :last_name, presence: true
 
     def Person.where_view(view)
-        Person.where(church: view.church)
+        matches = Person.where(church: view.church)
+        if !view.filters.nil?
+            view.filters.each do |rule|
+                condition = rule['condition']
+                field_name = condition['field']
+                value = condition['filterValue']
+                matches = matches.where(field_name => value[0])
+            end
+        end
+        matches
     end
 
     def name

@@ -20,10 +20,13 @@ class Person < ActiveRecord::Base
                 when 'begins_with'
                     operator = 'LIKE'
                     value = "#{value}%"
+                when 'not_begins_with'
+                    operator = 'NOT LIKE'
+                    value = "#{value}%"
                 else
                     throw "invalid operator #{operator}"
                 end
-                
+
                 if column_names.include? field_name
                     matches = matches.where("#{field_name} #{operator} ?", value)
                 else

@@ -13,8 +13,22 @@ class Person < ActiveRecord::Base
             view.filters.each do |rule|
                 condition = rule['condition']
                 field_name = condition['field']
-                value = condition['filterValue']
-                matches = matches.where(field_name => value[0])
+                value = condition['filterValue'][0]
+                case condition['operator']
+                when 'equal'
+                    operator = '='
+                when 'begins_with'
+                    operator = 'LIKE'
+                    value = "#{value}%"
+                else
+                    throw "invalid operator #{operator}"
+                end
+                
+                if column_names.include? field_name
+                    matches = matches.where("#{field_name} #{operator} ?", value)
+                else
+                    throw "Invalid field name"
+                end
             end
         end
         matches

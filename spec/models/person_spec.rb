@@ -46,7 +46,7 @@ describe Person, type: :model do
           @other_church = create(:church)
           @person1 = create(:person, first_name: 'Joe', last_name: 'Black', church: @church)
           @person2 = create(:person, first_name: 'Jo', last_name: 'White', church: @church)
-          @person3 = create(:person, first_name: 'John', last_name: 'Brown', church: @church)
+          @person3 = create(:person, first_name: 'Luke', last_name: 'Brown', church: @church)
           @person4 = create(:person, first_name: 'Lynn', last_name: 'Blue', church: @other_church)
           @view = create(:view, church: @church)
       end
@@ -60,11 +60,23 @@ describe Person, type: :model do
               {
                   element_rule_id:"rule_filters_1",
                   condition: {
-                      filterType: "text", field:"first_name", operator:"equal", filterValue:["John"]
+                      filterType: "text", field:"first_name", operator:"equal", filterValue:["Luke"]
                   },
                   logical_operator:"AND"
               }]
           expect(Person.where_view(@view)).to contain_exactly(@person3)
+      end
+
+      it 'applies begins_with filters' do
+          @view.filters = [
+              {
+                  element_rule_id:"rule_filters_1",
+                  condition: {
+                      filterType: "text", field:"first_name", operator:"begins_with", filterValue:["Jo"]
+                  },
+                  logical_operator:"AND"
+              }]
+          expect(Person.where_view(@view)).to contain_exactly(@person1, @person2)
       end
   end
 end

@@ -29,6 +29,12 @@ class Person < ActiveRecord::Base
                 when 'not_contains'
                     operator = 'NOT LIKE'
                     value = "%#{value}%"
+                when 'ends_with'
+                    operator = 'LIKE'
+                    value = "%#{value}"
+                when 'not_ends_with'
+                    operator = 'NOT LIKE'
+                    value = "%#{value}"
                 else
                     throw "invalid operator #{operator}"
                 end

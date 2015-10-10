@@ -114,5 +114,30 @@ describe Person, type: :model do
               }]
           expect(Person.where_view(@view)).to contain_exactly(@person3)
       end
+
+
+      it 'applies ends_with filters' do
+          @view.filters = [
+              {
+                  element_rule_id:"rule_filters_1",
+                  condition: {
+                      filterType: "text", field:"first_name", operator:"ends_with", filterValue:["e"]
+                  },
+                  logical_operator:"AND"
+              }]
+          expect(Person.where_view(@view)).to contain_exactly(@person1, @person3)
+      end
+
+      it 'applies not_ends_with filters' do
+          @view.filters = [
+              {
+                  element_rule_id:"rule_filters_1",
+                  condition: {
+                      filterType: "text", field:"first_name", operator:"not_ends_with", filterValue:["e"]
+                  },
+                  logical_operator:"AND"
+              }]
+          expect(Person.where_view(@view)).to contain_exactly(@person2)
+      end
   end
 end

@@ -10,6 +10,9 @@ class Person < ActiveRecord::Base
     def self.where_view(view)
         matches = Person.where(church: view.church)
         if !view.filters.nil?
+            sql = ""
+            has_condition = false
+            values = []
             view.filters.each do |rule|
                 condition = rule['condition']
                 field_name = condition['field']
@@ -17,10 +20,18 @@ class Person < ActiveRecord::Base
                 value = as_sql_value(condition['operator'], condition['filterValue'] ? condition['filterValue'][0] : nil)
 
                 if column_names.include? field_name
-                    matches = matches.where("#{field_name} #{operator} ?", value)
+                    if (has_condition)
+                        sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
+                    end
+                    sql += "#{field_name} #{operator} ?"
+                    values.push value
+                    has_condition = true
                 else
                     throw "Invalid field name"
                 end
+            end
+            if (has_condition)
+                matches = matches.where(values.unshift sql)
             end
         end
         matches

@@ -214,6 +214,32 @@ describe Person, type: :model do
                 ]
                 expect(Person.where_view(@view)).to contain_exactly(@person2)
             end
+
+            it 'should apply two conditions with OR' do
+                @view.filters = [
+                    {
+                        element_rule_id: "rule_filters_1",
+                        condition: {
+                            filterType: "text",
+                            field: "first_name",
+                            operator: "equal",
+                            filterValue: ["Joe"]
+                        },
+                        logical_operator: "OR"
+                    },
+                    {
+                        element_rule_id: "rule_filters_2",
+                        condition: {
+                            filterType: "text",
+                            field: "last_name",
+                            operator: "equal",
+                            filterValue: ["White"]
+                        },
+                        logical_operator: "OR"
+                    }
+                ]
+                expect(Person.where_view(@view)).to contain_exactly(@person1, @person2)
+            end
         end
     end
 end

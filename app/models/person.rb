@@ -13,7 +13,7 @@ class Person < ActiveRecord::Base
             view.filters.each do |rule|
                 condition = rule['condition']
                 field_name = condition['field']
-                value = condition['filterValue'][0]
+                value = condition['filterValue'] ? condition['filterValue'][0] : nil
                 case condition['operator']
                 when 'equal'
                     operator = '='
@@ -35,6 +35,12 @@ class Person < ActiveRecord::Base
                 when 'not_ends_with'
                     operator = 'NOT LIKE'
                     value = "%#{value}"
+                when 'is_empty'
+                    operator = '='
+                    value = ''
+                when 'not_is_empty'
+                    operator = '!='
+                    value = ''
                 else
                     throw "invalid operator #{operator}"
                 end

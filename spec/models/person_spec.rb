@@ -139,5 +139,29 @@ describe Person, type: :model do
               }]
           expect(Person.where_view(@view)).to contain_exactly(@person2)
       end
+
+    it 'applies is_empty filters' do
+        @view.filters = [
+            {
+                element_rule_id:"rule_filters_1",
+                condition: {
+                    filterType: "text", field:"first_name", operator:"is_empty"
+                },
+                logical_operator:"AND"
+            }]
+        expect(Person.where_view(@view)).to contain_exactly()
+    end
+
+    it 'applies not_is_empty filters' do
+        @view.filters = [
+            {
+                element_rule_id:"rule_filters_1",
+                condition: {
+                    filterType: "text", field:"first_name", operator:"not_is_empty"
+                },
+                logical_operator:"AND"
+            }]
+        expect(Person.where_view(@view)).to contain_exactly(@person1, @person2, @person3)
+    end
   end
 end

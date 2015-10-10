@@ -69,6 +69,19 @@ describe Person, type: :model do
                 expect(Person.where_view(@view)).to contain_exactly(@person3)
             end
 
+            it 'applies not_equal filters' do
+                @view.filters = [
+                    {
+                        element_rule_id:"rule_filters_1",
+                        condition: {
+                            filterType: "text", field:"first_name", operator:"not_equal", filterValue:["Luke"]
+                        },
+                        logical_operator:"AND"
+                    }
+                ]
+                expect(Person.where_view(@view)).to contain_exactly(@person1, @person2)
+            end
+
             it 'applies begins_with filters' do
                 @view.filters = [
                     {

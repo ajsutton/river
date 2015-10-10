@@ -187,5 +187,33 @@ describe Person, type: :model do
                 expect(Person.where_view(@view)).to contain_exactly(@person1, @person2, @person3)
             end
         end
+
+        describe 'combined filters' do
+            it 'should apply two conditions with AND' do
+                @view.filters = [
+                    {
+                        element_rule_id: "rule_filters_1",
+                        condition: {
+                            filterType: "text",
+                            field: "first_name",
+                            operator: "begins_with",
+                            filterValue: ["Jo"]
+                        },
+                        logical_operator: "AND"
+                    },
+                    {
+                        element_rule_id: "rule_filters_2",
+                        condition: {
+                            filterType: "text",
+                            field: "last_name",
+                            operator: "equal",
+                            filterValue: ["White"]
+                        },
+                        logical_operator: "AND"
+                    }
+                ]
+                expect(Person.where_view(@view)).to contain_exactly(@person2)
+            end
+        end
     end
 end

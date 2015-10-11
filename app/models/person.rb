@@ -12,10 +12,6 @@ class Person < ActiveRecord::Base
         if !view.filters.nil?
             values = []
             sql = process_group(view.filters, values, false)
-            # sql = ""
-            # view.filters.each do |rule|
-                # sql += process_rule(rule, values, !sql.blank?)
-            # end
             if (!sql.blank?)
                 matches = matches.where(values.unshift sql)
             end
@@ -30,14 +26,20 @@ class Person < ActiveRecord::Base
     def self.process_group(group, values, has_condition)
         sql = ""
         group.each do |rule|
-            if rule['condition'].is_a? Array
-                sql += process_group(rule['condition'], values, has_condition || !sql.blank?)
-            else
-                sql += process_rule(rule, values, has_condition || !sql.blank?)
+            # puts sql
+            if (!sql.blank?)
+                sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
             end
+            if rule['condition'].is_a? Array
+                sql += process_group(rule['condition'], values, false)
+            else
+                sql += process_rule(rule, values, false)
+            end
+            # puts sql
         end
-        sql
+        sql.blank? ? sql : "(#{sql})"
     end
+    private_class_method :process_group
 
     def self.process_rule(rule, values, has_condition)
         sql = ""
@@ -47,9 +49,6 @@ class Person < ActiveRecord::Base
         value = as_sql_value(condition['operator'], condition['filterValue'] ? condition['filterValue'][0] : nil)
 
         if column_names.include? field_name
-            if (has_condition)
-                sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
-            end
             sql += "#{field_name} #{operator} ?"
             values.push value
             has_condition = true

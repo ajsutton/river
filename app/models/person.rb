@@ -10,27 +10,13 @@ class Person < ActiveRecord::Base
     def self.where_view(view)
         matches = Person.where(church: view.church)
         if !view.filters.nil?
-            sql = ""
-            has_condition = false
             values = []
-            view.filters.each do |rule|
-                condition = rule['condition']
-                field_name = condition['field']
-                operator = as_sql_operator condition['operator']
-                value = as_sql_value(condition['operator'], condition['filterValue'] ? condition['filterValue'][0] : nil)
-
-                if column_names.include? field_name
-                    if (has_condition)
-                        sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
-                    end
-                    sql += "#{field_name} #{operator} ?"
-                    values.push value
-                    has_condition = true
-                else
-                    throw "Invalid field name"
-                end
-            end
-            if (has_condition)
+            sql = process_group(view.filters, values, false)
+            # sql = ""
+            # view.filters.each do |rule|
+                # sql += process_rule(rule, values, !sql.blank?)
+            # end
+            if (!sql.blank?)
                 matches = matches.where(values.unshift sql)
             end
         end
@@ -40,6 +26,39 @@ class Person < ActiveRecord::Base
     def name
         "#{first_name} #{last_name}"
     end
+
+    def self.process_group(group, values, has_condition)
+        sql = ""
+        group.each do |rule|
+            if rule['condition'].is_a? Array
+                sql += process_group(rule['condition'], values, has_condition || !sql.blank?)
+            else
+                sql += process_rule(rule, values, has_condition || !sql.blank?)
+            end
+        end
+        sql
+    end
+
+    def self.process_rule(rule, values, has_condition)
+        sql = ""
+        condition = rule['condition']
+        field_name = condition['field']
+        operator = as_sql_operator condition['operator']
+        value = as_sql_value(condition['operator'], condition['filterValue'] ? condition['filterValue'][0] : nil)
+
+        if column_names.include? field_name
+            if (has_condition)
+                sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
+            end
+            sql += "#{field_name} #{operator} ?"
+            values.push value
+            has_condition = true
+        else
+            throw "Invalid field name"
+        end
+        sql
+    end
+    private_class_method :process_rule
 
     def self.as_sql_operator(condition_operator)
         case condition_operator

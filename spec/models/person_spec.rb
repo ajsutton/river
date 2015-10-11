@@ -240,6 +240,38 @@ describe Person, type: :model do
                 ]
                 expect(Person.where_view(@view)).to contain_exactly(@person1, @person2)
             end
+
+            it 'should apply condition groups' do
+                @view.filters = [
+                    {
+                        element_rule_id: "rule_filters_1",
+                        condition: {
+                            filterType: "text", field: "first_name", operator: "begins_with", filterValue:["Jo"]
+                        },
+                        logical_operator: "OR"
+                    },
+                    {
+                        element_rule_id: "rule_filters_2",
+                        condition: {
+                            filterType: "text", field: "last_name", operator: "equal", filterValue: [ "White" ]
+                        },
+                        logical_operator: "OR"
+                    },
+                    {
+                        condition: [
+                            {
+                                element_rule_id: "rule_filters_3",
+                                condition: {
+                                    filterType: "text", field: "first_name", operator: "contains", filterValue: [ "o" ]
+                                },
+                                logical_operator: "AND"
+                            }
+                        ],
+                        logical_operator: "OR"
+                    }
+                ]
+                expect(Person.where_view(@view)).to contain_exactly(@person1, @person2)
+            end
         end
     end
 end

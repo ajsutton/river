@@ -9,6 +9,7 @@ class Person < ActiveRecord::Base
 
     def self.where_view(view)
         matches = Person.where(church: view.church)
+        
         if !view.filters.nil?
             values = []
             sql = process_group(view.filters, values, false)
@@ -26,7 +27,6 @@ class Person < ActiveRecord::Base
     def self.process_group(group, values, has_condition)
         sql = ""
         group.each do |rule|
-            # puts sql
             if (!sql.blank?)
                 sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
             end

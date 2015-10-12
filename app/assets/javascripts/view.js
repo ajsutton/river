@@ -7,6 +7,7 @@ modulejs.define('view', function() {
             var filters = filtersForFields(fields);
             filters.unshift(textField('First Name', 'first_name'));
             filters.unshift(textField('Last Name', 'last_name'));
+
             element.jui_filter_rules({
                 bootstrap_version: '3',
                 filters: filters,

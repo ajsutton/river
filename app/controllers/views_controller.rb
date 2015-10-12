@@ -8,15 +8,39 @@ class ViewsController < ApplicationController
         render 'new'
     end
 
+    def show
+        @view = View.find(params[:id])
+        @fields = custom_fields params[:applies_to]
+    end
+
     def create
         @view = View.new view_params
         @view.church = current_user.church
         @view.applies_to = params[:applies_to]
+        if (@view.filters.is_a? String)
+            @view.filters = nil
+        end
+
         if @view.save
             redirect_to people_path(view: @view.id)
         else
             @fields = custom_fields params[:applies_to]
             render "new"
+        end
+    end
+
+    def update
+        @view = View.find(params[:id])
+
+        if !@view then
+          not_found
+        else
+          if @view.update(view_params)
+            people_path(view: @view.id)
+          else
+            @fields = custom_fields params[:applies_to]
+            render 'show'
+          end
         end
     end
 

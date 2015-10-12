@@ -1,0 +1,42 @@
+<%= render_errors(@view) %>
+<%= form_for @view do |f| %>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<%= f.label :name %>
+				<%= f.text_field :name, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<%= f.label :fields %>
+		</div>
+	</div>
+	<div class="row">
+		<% @fields.each do |field| %>
+			<div class="col-sm-6 col-md-4 col-lg-2">
+				<div class="form-group">
+					<label><%= f.check_box(:fields, { :multiple => true }, field[:id], nil) %> <%= field[:name] %></label>
+				</div>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="row">
+		<h2>Filters</h2>
+		<div id="filters" data-filters="<%= @fields.to_json %>">
+		</div>
+		<input type="hidden" name="view[filters]" id="view_filters" value="<%= @view.filters_as_json %>">
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<%= f.submit class: 'btn btn-primary pull-right', value: 'Save' %>
+				<%= link_to 'Back', people_path %>
+			</div>
+		</div>
+	</div>
+<% end %>

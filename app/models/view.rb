@@ -2,6 +2,8 @@
 class View < ActiveRecord::Base
   belongs_to :church
 
+  serialize :filters, HashSerializer
+
   validates :name, presence: true, uniqueness: { scope: [ :church, :applies_to ] }
   validates :fields, presence: true
   validates :church, presence: true
@@ -13,5 +15,9 @@ class View < ActiveRecord::Base
       else
           []
       end
+  end
+
+  def filters_as_json
+      filters.nil? ? nil : JSON.dump(filters)
   end
 end

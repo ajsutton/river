@@ -2,6 +2,7 @@ modulejs.define('view', function() {
     $(document).on("page:change", function() {
         $('div[data-filters]').each(function() {
             var element = $('#' + $(this).attr('id'));
+            var formField = $('#view_filters');
             var fields = JSON.parse(element.attr('data-filters'));
             var filters = filtersForFields(fields);
             filters.unshift(textField('First Name', 'first_name'));
@@ -9,9 +10,9 @@ modulejs.define('view', function() {
             element.jui_filter_rules({
                 bootstrap_version: '3',
                 filters: filters,
+                filter_rules: JSON.parse(formField.val() || "[]"),
                 onValidationError: onValidationError
-            })
-            var formField = $('#view_filters');
+            });
 
             element.closest('form').submit(function(e) {
                 var rules = [];
@@ -29,7 +30,6 @@ modulejs.define('view', function() {
     function filtersForFields(fields) {
         var filters = [];
         $.each(fields, function(idx, field) { filters.push(filterForField(field)) });
-        console.log(filters);
         return filters;
     }
 

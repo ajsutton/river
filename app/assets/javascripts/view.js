@@ -11,8 +11,7 @@ modulejs.define('view', function() {
                 filters: filters,
                 onValidationError: onValidationError
             })
-            var formField = $('<input type="hidden" name="' + element.attr('id') + '">');
-            element.after(formField);
+            var formField = $('#view_filters');
 
             element.closest('form').submit(function(e) {
                 var rules = [];

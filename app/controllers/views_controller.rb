@@ -28,6 +28,6 @@ class ViewsController < ApplicationController
     end
 
     def view_params
-        params.require(:view).permit(:name, :fields => [])
+        params.require(:view).permit(:name, :filters, :fields => [])
     end
 end

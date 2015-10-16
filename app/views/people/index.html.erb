@@ -24,7 +24,8 @@
 </table>
 <%= will_paginate @people %>
 <p>
-	<% if @current_view %>
+	<% if !@current_view.id.nil? %>
+		<%= link_to 'Edit View', view_path(@current_view), class: 'btn btn-default pull-right' %>
 	<% end %>
 	<%= link_to 'Add', new_person_path, class: 'btn btn-default' %>
 </p>

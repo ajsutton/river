@@ -2,7 +2,7 @@
 class View < ActiveRecord::Base
   belongs_to :church
 
-  serialize :filters, HashSerializer
+  # serialize :filters, HashSerializer
 
   validates :name, presence: true, uniqueness: { scope: [ :church, :applies_to ] }
   validates :fields, presence: true

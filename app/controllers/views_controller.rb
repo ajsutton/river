@@ -36,7 +36,7 @@ class ViewsController < ApplicationController
           not_found
         else
           if @view.update(view_params)
-            people_path(view: @view.id)
+            redirect_to people_path(view: @view.id)
           else
             @fields = custom_fields params[:applies_to]
             render 'show'

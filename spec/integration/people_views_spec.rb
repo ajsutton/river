@@ -14,4 +14,11 @@ describe 'People Views' do
         people.has_people :person1
         people.has_columns 'Name', 'Custom Field 1', 'Custom Field 2'
     end
+
+    it 'should edit existing views' do
+        people.views.create :view, fields: [ 'Custom Field 1' ]
+        people.has_columns 'Name', 'Custom Field 1'
+        people.views.edit :view, select: [ 'Custom Field 2' ], unselect: [ 'Custom Field 1' ]
+        people.has_columns 'Name', 'Custom Field 2'
+    end
 end

@@ -1,4 +1,5 @@
-require 'dsl_helper'
+# -*- encoding : utf-8 -*-
+require 'rails_helper'
 
 describe 'People Views' do
     before :each do

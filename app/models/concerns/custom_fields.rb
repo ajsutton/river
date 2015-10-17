@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module CustomFields extend ActiveSupport::Concern
     included do
         after_initialize :init

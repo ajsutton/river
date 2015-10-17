@@ -44,6 +44,11 @@ class ViewsController < ApplicationController
         end
     end
 
+    def destroy
+        View.delete(params[:id])
+        redirect_to people_path, notice: "View deleted"
+    end
+
     private
 
     def custom_fields(applies_to)

@@ -26,6 +26,14 @@ module DslUtil
             click_button 'Save'
         end
 
+        def has_views(*viewAliases)
+            view_names = viewAliases.map { |viewAlias| @views.get viewAlias }
+
+            navigate_to_people
+            actual_links = page.all('.views a').map { |el| el.text }
+            expect(actual_links).to eq (view_names + [ '+' ])
+        end
+
         def edit(viewAlias, options = {})
             params = parse_params(options, {
                 select: [],

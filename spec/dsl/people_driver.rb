@@ -52,9 +52,7 @@ module DslUtil
       open_people_index
 
       actual_names = page.all('.people .name').map { |el| el.text }
-      expected_names = expected_people.map do |personAlias|
-        name_for @people.get(personAlias)
-      end
+      expected_names = expected_people.map { |personAlias| name_for @people.get(personAlias) }
       expect(actual_names).to eq(expected_names)
     end
 

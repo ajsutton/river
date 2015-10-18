@@ -21,4 +21,14 @@ describe 'People Views' do
         people.views.edit :view, select: [ 'Custom Field 2' ], unselect: [ 'Custom Field 1' ]
         people.has_columns 'Name', 'Custom Field 2'
     end
+
+    it 'should delete views' do
+        people.views.create :view1, fields: [ 'Custom Field 1']
+        people.views.create :view2, fields: [ 'Custom Field 2']
+
+        people.views.delete :view1
+
+        people.views.has_views :view2
+        people.has_columns 'Custom Field 2'
+    end
 end

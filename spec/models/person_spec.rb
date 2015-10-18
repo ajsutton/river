@@ -44,15 +44,37 @@ describe Person, type: :model do
         before :each do
             @church = create(:church)
             @other_church = create(:church)
-            @person1 = create(:person, first_name: 'Joe', last_name: 'Black', church: @church)
-            @person2 = create(:person, first_name: 'Jo', last_name: 'White', church: @church)
-            @person3 = create(:person, first_name: 'Luke', last_name: 'Brown', church: @church)
-            @person4 = create(:person, first_name: 'Lynn', last_name: 'Blue', church: @other_church)
+            field1 = build(:field, name: 'Field1')
+            field2 = build(:field, name: 'Field2')
+            @field1 = field1[:id]
+            @field2 = field2[:id]
+            @schema = create(:field_schema, fields: [ field1, field2 ], church: @church)
+            @person1 = create(:person, first_name: 'Joe', last_name: 'Black', fields: { @field1 => 'Carrot', @field2 => 'Apple' }, church: @church)
+            @person2 = create(:person, first_name: 'Jo', last_name: 'White', fields: { @field1 => 'Potato', @field2 => 'Orange' }, church: @church)
+            @person3 = create(:person, first_name: 'Luke', last_name: 'Brown', fields: { @field1 => 'Onion', @field2 => 'Banana' }, church: @church)
+            @person4 = create(:person, first_name: 'Lynn', last_name: 'Blue', fields: { @field1 => 'Broccoli', @field2 => 'Peach' }, church: @other_church)
             @view = create(:view, church: @church)
         end
 
         it 'only includes people from the current church' do
             expect(Person.where_view(@view)).to contain_exactly(@person1, @person2, @person3)
+        end
+
+        describe 'custom fields' do
+            describe 'simple filters' do
+                it 'applies equal filters' do
+                    @view.filters = [
+                        {
+                            element_rule_id:"rule_filters_1",
+                            condition: {
+                                filterType: "text", field: @field1, operator:"equal", filterValue:['Onion']
+                            },
+                            logical_operator:"AND"
+                        }
+                    ]
+                    expect(Person.where_view(@view)).to contain_exactly(@person3)
+                end
+            end
         end
 
         describe 'simple filters' do

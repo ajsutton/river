@@ -24,6 +24,12 @@ module CustomFields extend ActiveSupport::Concern
         field_schema.fields
     end
 
+    module ClassMethods
+        def schema(church)
+            FieldSchema.find_by(church: church, applies_to: self.name.downcase) || FieldSchema.new(church: church, applies_to: self.name.downcase)
+        end
+    end
+
     private
 
     def init
@@ -32,6 +38,6 @@ module CustomFields extend ActiveSupport::Concern
 
     def field_schema
         @schema ||= FieldSchema.find_by(church: self.church, applies_to: self.class.name.downcase)
-        @schema || FieldSchema.new(church: church, applies_to: self.class.name.downcase)
+        @schema || FieldSchema.new(church: self.church, applies_to: self.class.name.downcase)
     end
 end

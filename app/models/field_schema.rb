@@ -16,6 +16,10 @@ class FieldSchema < ActiveRecord::Base
       field.nil? ? nil : field[:id]
   end
 
+  def has_field_with_id?(id)
+      self.fields.any? { |field| field[:id].eql? id }
+  end
+
   private
 
   def valid_fields

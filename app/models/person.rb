@@ -9,10 +9,10 @@ class Person < ActiveRecord::Base
 
     def self.where_view(view)
         matches = Person.where(church: view.church)
-        
+        schema = Person.schema(view.church)
         if !view.filters.nil?
             values = []
-            sql = process_group(view.filters, values, false)
+            sql = process_group(view.filters, values, false, schema)
             if (!sql.blank?)
                 matches = matches.where(values.unshift sql)
             end
@@ -24,31 +24,35 @@ class Person < ActiveRecord::Base
         "#{first_name} #{last_name}"
     end
 
-    def self.process_group(group, values, has_condition)
+    def self.process_group(group, values, has_condition, schema)
         sql = ""
         group.each do |rule|
             if (!sql.blank?)
                 sql += rule['logical_operator'] == 'AND' ? ' AND ' : ' OR '
             end
             if rule['condition'].is_a? Array
-                sql += process_group(rule['condition'], values, false)
+                sql += process_group(rule['condition'], values, false, schema)
             else
-                sql += process_rule(rule, values, false)
+                sql += process_rule(rule, values, false, schema)
             end
-            # puts sql
         end
         sql.blank? ? sql : "(#{sql})"
     end
     private_class_method :process_group
 
-    def self.process_rule(rule, values, has_condition)
+    def self.process_rule(rule, values, has_condition, schema)
         sql = ""
         condition = rule['condition']
         field_name = condition['field']
-        operator = as_sql_operator condition['operator']
+        operator = as_sql_operator(condition['operator'])
         value = as_sql_value(condition['operator'], condition['filterValue'] ? condition['filterValue'][0] : nil)
 
-        if column_names.include? field_name
+        if schema.has_field_with_id? field_name
+            sql += "fields ->> ? #{operator} ?"
+            values.push field_name
+            values.push value
+            has_condition = true
+        elsif column_names.include?(field_name)
             sql += "#{field_name} #{operator} ?"
             values.push value
             has_condition = true

@@ -18,8 +18,7 @@ People
 
 Views
 -----
- * View filters should apply to custom fields (currently can really only apply to first_name and last_name).
- * Delete views
+ * Complete tests for: View filters should apply to custom fields (currently can really only apply to first_name and last_name).
  * Order by name (or specify order)
 
 Authentication/Authorisation

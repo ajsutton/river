@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   before_action :require_church!
 
   def index
-    @views = View.where(church: current_user.church, applies_to: 'person')
+    @views = View.where(church: current_user.church, applies_to: 'person').order(:name)
     @current_view = View.find_by(id: params[:view]) || @views.first || View.new(church: current_user.church, applies_to: 'person')
 
     @people = Person.where_view(@current_view).page(params[:page])

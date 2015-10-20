@@ -11,7 +11,7 @@ Custom Fields
  * Support select box field types
  * Support reference field types (e.g. Person having a "Parent" field that points to another Person)
  * Support uniqueness constraints on fields (e.g. can't have two people with same value for name)
- * Performance test view filtering with large amounts of data
+ * Custom field equality should be done with a combined @> operator
 
 People
 ------

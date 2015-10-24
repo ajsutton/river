@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005094234) do
+ActiveRecord::Schema.define(version: 20151024215833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20151005094234) do
   end
 
   add_index "churches", ["shortname"], name: "index_churches_on_shortname", unique: true, using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "user_id",    null: false
+    t.integer  "church_id",  null: false
+    t.integer  "person_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["church_id"], name: "index_comments_on_church_id", using: :btree
+  add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "field_schemas", force: :cascade do |t|
     t.integer  "church_id"
@@ -79,6 +92,9 @@ ActiveRecord::Schema.define(version: 20151005094234) do
   add_index "views", ["church_id", "applies_to", "name"], name: "index_views_on_church_id_and_applies_to_and_name", using: :btree
   add_index "views", ["church_id"], name: "index_views_on_church_id", using: :btree
 
+  add_foreign_key "comments", "churches"
+  add_foreign_key "comments", "people"
+  add_foreign_key "comments", "users"
   add_foreign_key "field_schemas", "churches"
   add_foreign_key "people", "churches"
   add_foreign_key "users", "churches"

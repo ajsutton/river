@@ -28,6 +28,9 @@ class PeopleController < ApplicationController
     @person = find(params[:id])
     if (!@person)
       not_found
+    else
+      @comments = @person.comments.all
+      @comment = @person.comments.build
     end
   end
 

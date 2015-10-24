@@ -17,6 +17,7 @@ People
 ------
  * Remove first_name and last_name predefined fields and treat all fields a custom.
  * Search
+ * Comments/Notes
 
 Views
 -----

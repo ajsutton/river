@@ -2,6 +2,7 @@
 class Person < ActiveRecord::Base
     include CustomFields
     include Viewable
+    include Commentable
     belongs_to :church
 
     validates :church, presence: true

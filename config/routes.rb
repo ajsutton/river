@@ -1,27 +1,32 @@
 # -*- encoding : utf-8 -*-
 Rails.application.routes.draw do
-  
+
   root 'welcome#index'
-  
+
   concern :viewable do |options|
     collection do
       resources :views, only: [:new,:create,:show,:update,:destroy], defaults: options
     end
   end
-  
+
+  concern :commentable do |options|
+      resources :comments, only: [:create,:destroy]
+  end
+
   resources :churches
   resources :people do
     concerns :viewable, applies_to: 'person'
+    concerns :commentable
   end
-  
+
   namespace :admin do
     resource :people_fields, only: [:show,:update]
   end
-  
+
   # Sessions
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match '/logout', to: 'sessions#destroy', via: [:get, :post]
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -77,4 +82,3 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
-

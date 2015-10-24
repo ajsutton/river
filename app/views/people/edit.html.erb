@@ -1,2 +1,26 @@
 <h1>Edit Person</h1>
 <%= render "form" %>
+
+<h2>Notes</h2>
+<% @comments.each do |comment| %>
+    <div class="comment panel panel-default">
+        <div class="panel-heading">
+            <p class="panel-title"><%= comment.user.name %></p>
+        </div>
+        <div class="panel-body">
+            <%= comment.body %>
+        </div>
+    </div>
+<% end %>
+<%= form_for [@person, @comment] do |f| %>
+	<div class="row">
+		<div class="col-xs-12">
+		  <div class="form-group">
+		    <%= f.label :body, "Comment" %>
+		    <%= f.text_area :body, class: 'form-control' %>
+		  </div>
+	    </div>
+	</div>
+
+      <%= f.submit value: "Add Comment", class: 'btn btn-primary pull-right' %>
+<% end %>

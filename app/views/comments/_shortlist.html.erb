@@ -1,0 +1,5 @@
+<p class="comment">
+    <span class="author"><%= comment.user.name %></span>
+    <span class="timestamp">(<%= time_tag(comment.created_at.to_date) %>):</span>
+    <span class="comment-body"><%= comment.body %>
+</p>

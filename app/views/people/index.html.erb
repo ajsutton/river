@@ -11,6 +11,7 @@
       <% @current_view.load_fields.each do |field| %>
         <th><%= field[:name] %></th>
       <% end %>
+	  <th>Notes</th>
   </tr>
 
   <% @people.each do |person| %>
@@ -19,6 +20,7 @@
         <% @current_view.load_fields.each do |field| %>
             <td><%= person.fields.nil? ? '' : person.fields[field[:id]] %></td>
         <% end %>
+		<td><%= recent_comments person %></td>
     </tr>
   <% end %>
 </table>

@@ -5,7 +5,10 @@
 <% @comments.each do |comment| %>
     <div class="comment panel panel-default">
         <div class="panel-heading">
-            <p class="panel-title"><%= comment.user.name %></p>
+            <p class="panel-title clearfix">
+                <span class="author"><%= comment.user.name %></span>
+                <span class="timestamp pull-right"><%= time_tag(comment.created_at) %> (<%= time_ago_in_words(comment.created_at) %> ago)</span>
+            </p>
         </div>
         <div class="panel-body">
             <%= comment.body %>

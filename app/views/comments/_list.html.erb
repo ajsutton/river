@@ -1,0 +1,26 @@
+<% @comments.each do |comment| %>
+    <div class="comment panel panel-default">
+        <div class="panel-heading">
+            <p class="panel-title clearfix">
+                <span class="author"><%= comment.user.name %></span>
+                <span class="timestamp pull-right"><%= time_tag(comment.created_at) %> (<%= time_ago_in_words(comment.created_at) %> ago)</span>
+            </p>
+        </div>
+        <div class="panel-body">
+            <%= comment.body %>
+        </div>
+    </div>
+<% end %>
+
+<%= form_for [@person, @comment] do |f| %>
+	<div class="row">
+		<div class="col-xs-12">
+		  <div class="form-group">
+		    <%= f.label :body, "Add Note" %>
+		    <%= f.text_area :body, class: 'form-control' %>
+		  </div>
+	    </div>
+	</div>
+
+      <%= f.submit value: "Add", class: 'btn btn-primary pull-right' %>
+<% end %>
